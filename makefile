@@ -3,29 +3,34 @@ all : gahyph.tex dist
 
 up : deanta.raw
 	
-#  upon a new release of tetex, need to go in and edit
-#  /usr/share/texmf/tex/generic/config/language.dat
-#  (other language.dat's seem not to have an effect)
-#   then you need to run:
-#  % initex latex.ltx    (or "fmtutil --all"?) to rebuild web2c/latex.fmt
-#  but be sure default permission for root are 644, not 600!
+#  upon a new release of tetex, need to redo the "installation instructs"
+#  as given in usaid.html.
 install :
 	cp -f gahyph.tex /usr/share/texmf/tex/generic/hyphen
 	chmod 444 /usr/share/texmf/tex/generic/hyphen/gahyph.tex
-	cp -f gahyph.tex /usr/share/texmf/source/generic/babel
-	chmod 444 /usr/share/texmf/source/generic/babel/gahyph.tex
+	(cd /usr/share/texmf/web2c; initex latex.ltx; chmod 444 latex.fmt)
+#	cp -f gahyph.tex /usr/share/texmf/source/generic/babel
+#	chmod 444 /usr/share/texmf/source/generic/babel/gahyph.tex
 
 installhtml : mile.html
 	cp -f index.html ${HOME}/public_html/fleiscin
 	cp -f sonrai.html ${HOME}/public_html/fleiscin
 	cp -f mile.html ${HOME}/public_html/fleiscin
+	cp -f usaid.html ${HOME}/public_html/fleiscin
 	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
-mile.html : ga.pat miletemp.html
-	beocorp | keepok | egrep -v "'" | egrep -v -e '-' | sort | uniq -c | sort -n -r | sed 's/^ *[1-9][0-9]* //' | head -n 1000 > mile.dic
-	(echo "2"; echo "1"; echo "y") | patgen mile.dic ga.pat /dev/null ga.tra
-	cat pattmp.5 | tr "." "-" | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' > mile.dic
-	sed '/^Please/r mile.dic' miletemp.html > mile.html
+mile.html : mile.dic miletemp.html
+	cat mile.dic | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
+	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
+	rm -f mile.dic.temp
+
+mile.dic : ga.pat ga.tra mile.txt
+	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
+	cat pattmp.5 | tr "." "-" > mile.dic
+
+# implicitly depends on entire corpus
+mile.txt :
+	brillcorp | keepok -n | egrep -v '^Image$$' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -n -r | sed 's/^ *[1-9][0-9]* //' | head -n 1000 > mile.txt
 
 dist : hyph_ga_IE.zip
 
@@ -68,7 +73,7 @@ clean :
 
 distclean :
 	make clean
-	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.*
+	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt
 
 #############################################################################
 #              stuff for bootstrapping (working on todo.raw)
