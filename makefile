@@ -20,7 +20,7 @@ installhtml : mile.html
 	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
 mile.html : mile.dic miletemp.html
-	cat mile.dic | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
+	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
 	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
 	rm -f mile.dic.temp
 
@@ -30,7 +30,7 @@ mile.dic : ga.pat ga.tra mile.txt
 
 # implicitly depends on entire corpus
 mile.txt :
-	brillcorp | keepok -n | egrep -v '^Image$$' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -n -r | sed 's/^ *[1-9][0-9]* //' | head -n 1000 > mile.txt
+	brillcorp | keepok -n | egrep -v '^Image$$' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -n -r | sed 's/^ *[1-9][0-9]* //' | head -n 2500 > mile.txt
 
 dist : hyph_ga_IE.zip
 
@@ -87,6 +87,8 @@ todo.5 : todo.raw ga.tra ga.pat
 	rm -f todo.dic
 	cat pattmp.5 | egrep -v '!' | egrep -v '\.[^aeiouáéíóú]+\.' | egrep -v '[aeiouáéíóú][^aeiouáéíóú.*]+[aeiouáéíóú]' | sort -u > todo.5
 
+# same as above, but use ispell to expand affix flags
+#  Not useful for bootstrapping though
 todofull.5 : todo.raw ga.tra ga.pat
 	cat todo.raw | tr -d "#" | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > todo.dic
 	(echo "2"; echo "1"; echo "y") | patgen todo.dic ga.pat /dev/null ga.tra
