@@ -1,0 +1,30 @@
+#!/bin/bash
+sed 's/\./|/g; s/\*/|/g' obair > obair.1
+cat obair | tr -d '.*' >> obair.1
+sort obair.1 | sed 'N; s/\n/ /' > obair.2
+cat todo.raw |
+while read x
+do
+	# obair.2 has only fully hyphenated things so can't match word w/ #'s!
+	if echo "${x}" | egrep '#' > /dev/null
+	then
+		echo "${x}"
+	else
+		WORD=`echo ${x} | sed 's/\/.*//' | tr -d "|"`
+		HIT=`egrep "^${WORD} " obair.2`
+		if [ -n "${HIT}" ]
+		then
+			ANSWER=`echo "${HIT}" | sed 's/^.* //'`
+			if echo "${x}" | egrep '/' > /dev/null
+			then
+				FLAGS=`echo ${x} | sed 's/^[^/]*\/\(.*\)/\1/'`
+				echo "${ANSWER}/${FLAGS}"
+			else
+				echo "${ANSWER}"
+			fi
+		else
+			echo "${x}"
+		fi
+	fi
+done
+rm -f obair.1 obair.2
