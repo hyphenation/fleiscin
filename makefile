@@ -27,7 +27,7 @@ hyph_ga_IE.zip : hyph_ga_IE.dic README_hyph_ga_IE.txt
 	zip hyph_ga_IE.zip hyph_ga_IE.dic README_hyph_ga_IE.txt
 
 ga.pat : ga.dic ga.tra
-	patgen ga.dic tosaigh.pat ga.pat ga.tra  < inps.full
+	patgen ga.dic /dev/null ga.pat ga.tra  < inps
 	mv pattmp.? ga.log
 
 # strip out hyphens after 1st and before last TWICE:
@@ -65,11 +65,23 @@ ambig.txt : ga.dic
 	cat ga.dic | tr -d '!' | sort | uniq -c | egrep -v '1' | sed 's/^ *[0-9]* //' > ambig.txt
 
 clean :
-	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt
+	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt splits.txt twograms.txt
 
 distclean :
 	make clean
 	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt
+#############################################################################                2-grams stuff for adding to tosaigh.pat          
+#   1/31/04-- turns out this actually makes ga.pat BIGGER...
+splits.txt : ga.dic
+	cat ga.dic | sed 's/\(.\)!\(.\)!/\1!\2\2!/g' | egrep -o '.!.' | tr -d '!' | sort -u > splits.txt 
+
+twograms.txt : ga.dic
+	cat ga.dic | tr -d '!' | ngrams -s 2 | egrep -v '[<>]' | egrep '[0-9]{3}' | sed 's/^ *[0-9]* //' | sort > twograms.txt
+
+# then do:
+# cat twograms.txt | while read x; do if ! egrep "^${x}$" splits.txt > /dev/null; then echo "${x}" | sed 's/^\(.\)\(.\)/\16\2/'; fi; done
+
+
 #############################################################################
 #        web page stuff
 installhtml : mile.html
