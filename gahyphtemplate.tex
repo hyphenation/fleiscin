@@ -1,4 +1,4 @@
-% Hyphenation patterns for Irish
+% `gahyph.tex': Hyphenation patterns for Irish
 % Copyright (C) 2004 Kevin P. Scannell <scannell@slu.edu>
 %
 % This program is free software; you can redistribute it and/or
@@ -28,30 +28,9 @@
 %%%  }
 %%% ====================================================================
 %
-%    I know of no written standards for hyphenation of Irish;
-%    the patterns below were bootstrapped from an initial
-%    database of hyphenated words extracted from actual
-%    printed material.   This database was augmented through
-%    the use of some "sed" scripts which added hyphens in obvious 
-%    places: after standard prefixes, before morphological features
-%    (verb endings, plural endings, etc.), and inside compound words.
-%    I then performed a series of bootstrap steps using Patgen
-%    and further refining with sed.
+%    See the web page  http://borel.slu.edu/fleiscin/index.html
+%    for more information on how these patterns were generated.
 %  
-%    The resulting hyphenation patterns are very much "etymological"
-%    vs. "phonological".   As a consequence, they do not always
-%    agree with hyphenations I've found in texts.  For instance:
-%
-%     These patterns             Corpus
-%      "Ceilt-each"     vs.    "Ceil-teach"
-%      "siosc-adh"      vs.    "sios-cadh" 
-%      "craic-eann"     vs.    "crai-ceann"
-%      "ceann-aithe"    vs.    "cean-naithe"
-%      "tuairt-eáil"    vs.    "tuair-teáil"
-%      "comh-alta"      vs.    "com-halta"
-%
-%    The last, of course, is an abomination of the worst kind.
-%
 %    Please report incorrect hyphenations to the author at the 
 %    email address above.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,4 +47,33 @@
 \catcode`^^fa=11 \lccode`^^fa=`^^fa \uccode`^^fa=`^^da    % \'u
 
 \patterns{
+}
+
+% See the web page cited above for descriptions of these ambiguities.
+%  2004-01-23:  24 of them
+\hyphenation{
+bhrachtaí
+mbrachtaí
+cháintí
+gcáintí
+choirtí
+gcoirtí
+chreataí
+gcreataí
+dhoirteá
+dhoirtear
+dhoirtí
+doirtear
+ndoirteá
+ndoirtear
+ndoirtí
+bhfuadar
+fhuadar
+ghortaí
+ngortaí
+léamar
+luadar
+réaltaí
+dtiom-áintí
+thiom-áintí
 }
