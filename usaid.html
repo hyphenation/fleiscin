@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <title>Irish Hyphenation: Installation and Usage</title>
+  <meta http-equiv="Content-Language" content="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="description" content="Instructions for using hyphenation patterns for the Irish language">
+  <meta name="keywords" content="hyphenation, TeX, LaTeX, Gaeilge, Irish language">
+  <meta name="author" content="Kevin P. Scannell">
+  <link rel="stylesheet" href="../kps.css" type="text/css">
+</head>
+
+<body>
+<div class="content">
+<h1>Irish Hyphenation:<br>
+Installation and Usage</h1>
+
+<hr>
+<h2>LaTeX Installation</h2>
+<p>
+The installation may vary according to the distribution
+of TeX/LaTeX that you use (I use <a href="http://www.tug.org/teTeX/">teTeX</a>
+as packaged by <a href="http://www.gentoo.org/">Gentoo Linux</a>).
+Path names in the instructions are given relative to your system
+<i>texmf</i> directory; for me this is <i>/usr/share/texmf</i>.
+</p>
+
+<ol>
+<li>Download the file <i>gahyph.tex</i> from 
+<a href = "http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.
+<li>Copy it into the directory <i>tex/generic/hyphen</i>.
+<li>Insert a line of the form 
+<pre>
+irish   gahyph.tex
+</pre>
+in the file <i>tex/generic/config/language.dat</i>.
+<li>Go into the subdirectory <i>web2c</i> and run
+<i>initex</i> to compile the patterns and
+rebuild the <i>latex.fmt</i> file:
+<pre>
+# initex latex.ltx
+</pre>
+</ol>
+
+<hr>
+<h2>LaTeX Usage</h2>
+<p>
+To typeset an Irish document, simply add the lines
+<pre>
+\usepackage[irish]{babel}
+\usepackage[T1]{fontenc}
+</pre>
+to the preamble and compile using LaTeX as usual.
+This sets the default language of the document to Irish.
+If you need to include some English passages, change the "babel"
+line above to:
+<pre>
+\usepackage[english,irish]{babel}
+</pre>
+and use "\selectlanguage" in the body of the document as follows:
+<pre>
+\begin{document}
+Is \'easca an fleisc\'{\i}n\'{\i}
+a chur san \'aireamh anois.
+
+\selectlanguage{english}
+We don't talk no foreign languages
+round these here parts.
+
+\selectlanguage{irish}
+Bainfidh m\'e \'us\'aid as an acmhainn seo.
+\end{document}
+</pre>
+</p>
+
+
+<hr>
+<h2>Important Remarks</h2>
+<ul>
+<li>TeX inserts a discretionary break after <i>explicit</i>
+hyphens within words; this has the (mostly desirable) effect that
+explicitly hyphenated words will only be broken at the hyphen.
+<li>This is fine for "Breac-Ghaeltacht" or "Ard-Aighne", 
+but not for "t-idirnáisiúnachas".   You will have to add your
+own discretionary hyphens if such a word needs to be broken, e.g.
+"t-idir\-n\'aisi\'unachas".
+<li>Conversely, you may want to <em>prevent</em> breaks at 
+"t-" or "n-"; for this you can enclose the word in an "\mbox".
+<li>Similar remarks hold for words containing apostrophes.
+One could try using "\catcode" to declare apostrophes to be "letters",
+but this forces you to include spaces when entering acute accents:
+"n\' aisi\' un".   Instead, since apostrophes occur relatively infrequently,
+it is easier to insert discretionary hyphens when needed.
+</ul>
+
+
+<hr>
+<em>© Cóipcheart/Copyright 2004 Kevin P. Scannell</em><br><br>
+</div>
+<div class="navigation">
+<a href = "index.html">Home</a><br>
+Usage<br>
+<a href = "sonrai.html">Details</a><br>
+<a href = "mile.html">Top 1000</a><br>
+<a href = "/gaeilge.html">Projects</a><br>
+</div>
+</body>
+</html>
