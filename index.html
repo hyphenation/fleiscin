@@ -25,21 +25,31 @@
 <p>
 This page describes the hyphenation patterns needed for
 proper typesetting of Irish language text using
-<a href="http://www.tug.org/">TeX</a> or
-<a href="http://www.openoffice.org/">OpenOffice</a>.
+<a href="http://www.tug.org/">TeX</a>,
+<a href="http://www.openoffice.org/">OpenOffice</a>,
+<a href="http://xml.apache.org/fop/index.html">FOP</a>,
+or <a href="http://web2.altmuehlnet.de/fschmid/">Scribus</a>.
 The patterns are derived automatically from a database
 of hyphenated words which should allow easy integration
-into other typesetting systems.
+into other typesetting systems (as long as they are
+<a href="http://www.gnu.org/philosophy/free-sw.html">Free Software</a>).
 </p>
 
 <hr>
 <h2>Download</h2>
 
 <p>
-The file <i>gahyph.tex</i> (for use with TeX, LaTeX, and variants)
-can be downloaded from <a href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>, and the file
-<i>hyph_ga_IE.zip</i> (for use with OpenOffice) can be
+<ul>
+<li>The file <i>gahyph.tex</i> (for use with TeX, LaTeX, and variants)
+can be downloaded from <a href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.  It should eventually end up as part of the 
+<a href="http://www.braams.cistron.nl/babel/node1.html">Babel</a> package.
+<li>The file <i>hyph_ga_IE.zip</i> (for use with OpenOffice) can be
 downloaded from OpenOffice's <a href="http://lingucomponent.openoffice.org/hyph_dic.html">lingucomponent</a> project site.
+<li>Since the Apache license is incompatible with the GPL,
+the patterns cannot be distributed with the FOP codebase. 
+You'll need to download <i><a href="ga.xml">ga.xml</a></i> directly
+and install it on your own.
+</ul>
 </p>
 
 <p>
