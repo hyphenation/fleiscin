@@ -1,8 +1,6 @@
 
 all : gahyph.tex dist
 
-up : deanta.raw
-	
 #  upon a new release of tetex, need to redo the "installation instructs"
 #  as given in usaid.html.
 install :
@@ -11,27 +9,6 @@ install :
 	(cd /usr/share/texmf/web2c; initex latex.ltx; chmod 444 latex.fmt)
 #	cp -f gahyph.tex /usr/share/texmf/source/generic/babel
 #	chmod 444 /usr/share/texmf/source/generic/babel/gahyph.tex
-
-installhtml : mile.html
-	cp -f index.html ${HOME}/public_html/fleiscin
-	cp -f sonrai.html ${HOME}/public_html/fleiscin
-	cp -f mile.html ${HOME}/public_html/fleiscin
-	cp -f usaid.html ${HOME}/public_html/fleiscin
-	chmod 444 ${HOME}/public_html/fleiscin/*.html
-
-mile.html : mile.dic miletemp.html
-	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
-	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
-	rm -f mile.dic.temp
-
-mile.dic : ga.pat ga.tra mile.txt
-	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
-	cat pattmp.5 | tr "." "-" > mile.dic
-	rm -f pattmp.5
-
-# implicitly depends on entire corpus
-mile.txt :
-	brillcorp | keepok -n | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
 
 dist : hyph_ga_IE.zip
 
@@ -50,8 +27,8 @@ hyph_ga_IE.zip : hyph_ga_IE.dic README_hyph_ga_IE.txt
 	zip hyph_ga_IE.zip hyph_ga_IE.dic README_hyph_ga_IE.txt
 
 ga.pat : ga.dic ga.tra
-	patgen ga.dic /dev/null ga.pat ga.tra  < inps.full
-	mv pattmp.5 ga.log
+	patgen ga.dic tosaigh.pat ga.pat ga.tra  < inps.full
+	mv pattmp.? ga.log
 
 # strip out hyphens after 1st and before last TWICE:
 # once before ispell so that "d'" etc. aren't added to "a|treoraigh"
@@ -78,12 +55,45 @@ check : FORCE
 	@echo 'Bad aitches:'
 	@if egrep '[bcdfgmpstBCDFGMPST]\|h' deanta.raw; then echo "Problem."; fi;
 
+# writes list of words with bad hyphens but which aren't explicitly ambig.
+bugs.txt : ga.pat ambig.txt
+	cat ambig.txt | sed 's/.*/\/^&$$\/d/' > words.sed
+	egrep '\.' ga.log | tr -d '.!*' | sed -f words.sed > bugs.txt
+	rm -f words.sed
+
+ambig.txt : ga.dic
+	cat ga.dic | tr -d '!' | sort | uniq -c | egrep -v '1' | sed 's/^ *[0-9]* //' > ambig.txt
+
 clean :
-	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5
+	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt
 
 distclean :
 	make clean
 	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt
+#############################################################################
+#        web page stuff
+installhtml : mile.html
+	cp -f index.html ${HOME}/public_html/fleiscin
+	cp -f sonrai.html ${HOME}/public_html/fleiscin
+	cp -f mile.html ${HOME}/public_html/fleiscin
+	cp -f usaid.html ${HOME}/public_html/fleiscin
+	chmod 444 ${HOME}/public_html/fleiscin/*.html
+
+mile.html : mile.dic miletemp.html
+	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
+	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
+	rm -f mile.dic.temp
+
+mile.dic : ga.pat ga.tra mile.txt
+	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
+	cat pattmp.? | tr "." "-" > mile.dic
+	rm -f pattmp.?
+
+# implicitly depends on entire corpus
+mile.txt :
+	brillcorp | keepok -n | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
+
+
 #############################################################################
 #              stuff for stratified sampling
 #done.txt : ga.dic
@@ -101,11 +111,14 @@ ga-nlc.dic : NLC ga.dic
 
 ga-nlc.pat : ga-nlc.dic ga.tra
 	patgen ga-nlc.dic /dev/null ga-nlc.pat ga.tra  < inps
-	mv pattmp.5 ga-nlc.log
+	mv pattmp.? ga-nlc.log
 
 testnlc : ga-nlc.pat
 	(echo "2"; echo "1"; echo "y") | patgen ga.dic ga-nlc.pat /dev/null ga.tra
+	mv pattmp.? testnlc.log
 
+bugs-nlc.txt : ga-nlc.pat
+	egrep '[.!]' ga-nlc.log | tr -d '.!*' > bugs-nlc.txt
 
 #############################################################################
 #              stuff for bootstrapping (working on todo.raw)
@@ -119,6 +132,7 @@ todo.5 : todo.raw ga.tra ga.pat
 	(echo "2"; echo "1"; echo "y") | patgen todo.dic ga.pat /dev/null ga.tra
 	rm -f todo.dic
 	cat pattmp.5 | egrep -v '!' | egrep -v '\.[^aeiouáéíóú]+\.' | egrep -v '[aeiouáéíóú][^aeiouáéíóú.*]+[aeiouáéíóú]' | sort -u > todo.5
+	rm -f pattmp.?
 
 # same as above, but use ispell to expand affix flags
 #  Not useful for bootstrapping though
@@ -126,7 +140,7 @@ todofull.5 : todo.raw ga.tra ga.pat
 	cat todo.raw | egrep -v '^[^/]*[A-Z]' | tr -d "#" | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > todo.dic
 	(echo "2"; echo "1"; echo "y") | patgen todo.dic ga.pat /dev/null ga.tra
 	rm -f todo.dic
-	mv -f pattmp.5 todofull.5
+	mv -f pattmp.? todofull.5
 
 # hyphenates todo list, using TeX not patgen
 todo.tex : todo.raw todotemplate.tex
@@ -137,12 +151,6 @@ todo.tex : todo.raw todotemplate.tex
 # shows remaining long strings; work on em manually
 longs.txt : todo.raw
 	cat todo.raw | tr "|" "\n" | tr "#" "\n" | sed 's/\/.*//' | sort | uniq -c | egrep '[aeiouáéíóúAEIOUÁÉÍÓÚ][^aeiouáéíóúAEIOUÁÉÍÓÚ]+[aeiouáéíóúAEIOUÁÉÍÓÚ]' | sort -r -n > longs.txt
-
-#############################################################################
-#                           stuff for testing
-
-ambig.txt : ga.dic
-	cat ga.dic | tr -d '!' | sort | uniq -c | egrep -v '1' > ambig.txt
 
 #############################################################################
 #                     stuff for reversing todolist                          #
