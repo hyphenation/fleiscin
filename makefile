@@ -1,5 +1,5 @@
 
-all : gahyph.tex dist
+all : gahyph.tex dist ga.xml
 
 #  upon a new release of tetex, need to redo the "installation instructs"
 #  as given in usaid.html.
@@ -25,6 +25,10 @@ hyph_ga_IE.dic : ga.pat
 
 hyph_ga_IE.zip : hyph_ga_IE.dic README_hyph_ga_IE.txt
 	zip hyph_ga_IE.zip hyph_ga_IE.dic README_hyph_ga_IE.txt
+
+ga.xml : ambig.txt ga.pat
+	sed '/^<patterns>/r ga.pat' foptemplate.xml > ga.xml
+	sed -i '/^<exceptions>/r ambig.txt' ga.xml
 
 ga.pat : ga.dic ga.tra
 	patgen ga.dic /dev/null ga.pat ga.tra  < inps
@@ -69,7 +73,7 @@ clean :
 
 distclean :
 	make clean
-	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt ga-nlc.dic ga-nlc.pat NLC mile.html
+	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt ga-nlc.dic ga-nlc.pat NLC mile.html ga.xml
 #############################################################################                2-grams stuff for adding to tosaigh.pat          
 #   1/31/04-- turns out this actually makes ga.pat BIGGER...
 splits.txt : ga.dic
@@ -84,6 +88,12 @@ twograms.txt : ga.dic
 
 #############################################################################
 #        web page stuff
+
+installweb : ga.xml
+	make installhtml
+	cp -f ga.xml ${HOME}/public_html/fleiscin
+	chmod 444 ${HOME}/public_html/fleiscin/ga.xml
+
 installhtml : mile.html
 	cp -f index.html ${HOME}/public_html/fleiscin
 	cp -f sonrai.html ${HOME}/public_html/fleiscin
