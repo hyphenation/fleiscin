@@ -27,10 +27,11 @@ mile.html : mile.dic miletemp.html
 mile.dic : ga.pat ga.tra mile.txt
 	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
 	cat pattmp.5 | tr "." "-" > mile.dic
+	rm -f pattmp.5
 
 # implicitly depends on entire corpus
 mile.txt :
-	brillcorp | keepok -n | egrep -v '^Image$$' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -n -r | sed 's/^ *[1-9][0-9]* //' | head -n 2500 > mile.txt
+	brillcorp | keepok -n | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
 
 dist : hyph_ga_IE.zip
 
@@ -49,24 +50,33 @@ hyph_ga_IE.zip : hyph_ga_IE.dic README_hyph_ga_IE.txt
 	zip hyph_ga_IE.zip hyph_ga_IE.dic README_hyph_ga_IE.txt
 
 ga.pat : ga.dic ga.tra
-	patgen ga.dic /dev/null ga.pat ga.tra  < inps
+	patgen ga.dic /dev/null ga.pat ga.tra  < inps.full
+	mv pattmp.5 ga.log
 
 # strip out hyphens after 1st and before last TWICE:
 # once before ispell so that "d'" etc. aren't added to "a|treoraigh"
 # and once after since ispell generates such hyphens, e.g. "é|adh", etc.
 ga.dic : deanta.raw
-	cat deanta.raw | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > ga.dic
+	cat deanta.raw | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | tr "[:upper:]" "[:lower:]" | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > ga.dic
 
-# updates todo.raw too
-deanta.raw : todo.raw
-	touch deanta.raw
-	cp deanta.raw deanta.raw.bak
-	(egrep -v '^[^/]*[aeiouáéíóúAEIOUÁÉÍÓÚ][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#]+[aeiouáéíóúAEIOUÁÉÍÓÚ]' todo.raw; cat deanta.raw) > temp.raw
-	sed -i -n '/^[^/]*[aeiouáéíóúAEIOUÁÉÍÓÚ][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#]*[aeiouáéíóúAEIOUÁÉÍÓÚ]/p' todo.raw
-	sort -u temp.raw | tr -d "#" > deanta.raw
-	rm -f temp.raw
-	diff deanta.raw.bak deanta.raw | more
-	rm -f deanta.raw.bak
+#  1/30/04, done with todo.raw -> deanta.raw; so no more make target!
+#deanta.raw :
+#	touch deanta.raw
+#	cp deanta.raw deanta.raw.bak
+#	(egrep -v '^[^/]*[aeiouáéíóúAEIOUÁÉÍÓÚ][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#]+[aeiouáéíóúAEIOUÁÉÍÓÚ]' todo.raw; cat deanta.raw) > temp.raw
+#	sed -i -n '/^[^/]*[aeiouáéíóúAEIOUÁÉÍÓÚ][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#][^aeiouáéíóúAEIOUÁÉÍÓÚ/|#]*[aeiouáéíóúAEIOUÁÉÍÓÚ]/p' todo.raw
+#	sort -u temp.raw | tr -d "#" > deanta.raw
+#	rm -f temp.raw
+#	diff deanta.raw.bak deanta.raw | more
+#	rm -f deanta.raw.bak
+
+check : FORCE
+	@echo 'Illegal characters:'
+	@if egrep '[^/a-zA-ZáéíóúÁÉÍÓÚ|]' deanta.raw; then echo "Problem."; fi;
+	@echo 'Syllables with no vowels:'
+	@if egrep '\|[^aeiouáéíóú|]+\|' deanta.raw | egrep -v '\|nn\|a'; then echo "Problem."; fi;
+	@echo 'Bad aitches:'
+	@if egrep '[bcdfgmpstBCDFGMPST]\|h' deanta.raw; then echo "Problem."; fi;
 
 clean :
 	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5
@@ -74,9 +84,32 @@ clean :
 distclean :
 	make clean
 	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt
+#############################################################################
+#              stuff for stratified sampling
+#done.txt : ga.dic
+#	cat ga.dic | tr -d "!" | tr "[:upper:]" "[:lower:]" | sort -u > done.txt
+
+NLC :
+	nlcorpas | tokenize | sort | keepok -n | egrep -v '.{35}' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | LC_ALL=C egrep -v '[a-záéíóú0-9 ]' | sort -u > NLC
+
+# used to use patgen to do this; build the "ga.pat" ruleset and then
+# run "NLC" through it: 
+# (echo "2"; echo "1"; echo "y") | patgen NLC ga.pat /dev/null ga.tra
+# then change "." to "!" as usual
+ga-nlc.dic : NLC ga.dic
+	bash ./nlcdic > ga-nlc.dic
+
+ga-nlc.pat : ga-nlc.dic ga.tra
+	patgen ga-nlc.dic /dev/null ga-nlc.pat ga.tra  < inps
+	mv pattmp.5 ga-nlc.log
+
+testnlc : ga-nlc.pat
+	(echo "2"; echo "1"; echo "y") | patgen ga.dic ga-nlc.pat /dev/null ga.tra
+
 
 #############################################################################
 #              stuff for bootstrapping (working on todo.raw)
+#                         
 
 
 # used to test current pattern set on "todo" with the following 
@@ -90,7 +123,7 @@ todo.5 : todo.raw ga.tra ga.pat
 # same as above, but use ispell to expand affix flags
 #  Not useful for bootstrapping though
 todofull.5 : todo.raw ga.tra ga.pat
-	cat todo.raw | tr -d "#" | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > todo.dic
+	cat todo.raw | egrep -v '^[^/]*[A-Z]' | tr -d "#" | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > todo.dic
 	(echo "2"; echo "1"; echo "y") | patgen todo.dic ga.pat /dev/null ga.tra
 	rm -f todo.dic
 	mv -f pattmp.5 todofull.5
