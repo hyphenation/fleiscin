@@ -17,76 +17,101 @@
 Details</h1>
 
 <hr>
-<h2>TeX hyphenation algorithm</h2>
+<h2>TeX's hyphenation algorithm</h2>
 <p>
+Coming soon...
 </p>
 
 <hr>
 <h2>Developing patterns for Irish</h2>
 <p>
-Another basic heuristic was, for syncopated words, to include
-a hyphen at the point of syncopation; e.g. 
-"ciog-al" and "ciog-lach".
+I plan on including a detailed description of the 
+initial data set and bootstrapping process here.
+For now, just a couple of quick rules while I'm thinking of them:
 </p>
 
+<p>
+One basic heuristic involves lenition;
+a word should never be broken between a lenitable
+consonant and the "h" indicating the lenition orthographically.
+Thus you will find patterns like "c4h", "d4h", etc. in the
+rule set.  Conversely, if an "h" appears after a non-lenitable
+consonant, it is usually a good candidate for a hyphen point, 
+as in <i lang="ga">Bói-héam-ach</i> or <i lang="ga">Faran-haít</i>.
+This results in patterns
+of the form "i1h", "n1h", etc.
+</p>
+
+<p>
+Another basic heuristic is, for syncopated words, to include
+a hyphen at the point of syncopation; e.g. 
+<i lang="ga">ciog-al</i> and <i lang="ga">ciog-lach</i>.
+</p>
+
+<p>
+More coming soon...
+</p>
 <hr>
 <h2>Results</h2>
 <p>
 The resulting hyphenation patterns are very much "etymological"
 vs. "phonological".   As a consequence, they do not always
-agree with hyphenations I've found in texts.  For instance:
-
- These patterns             Corpus
-  "Ceilt-each"     vs.    "Ceil-teach"
-  "siosc-adh"      vs.    "sios-cadh"
-  "craic-eann"     vs.    "crai-ceann"
-  "ceann-aithe"    vs.    "cean-naithe"
-  "tuairt-eáil"    vs.    "tuair-teáil"
-  "comh-alta"      vs.    "com-halta"
-
+agree with hyphenations I've found in actual printed texts.
+For instance:<br><br>
+<table lang="ga" border cellpadding=2>
+<tr><td lang="en">My patterns</td>  <td lang="en">Corpus</td></tr>
+<tr><td>Ceilt-each</td>         <td>Ceil-teach</td></tr>
+<tr><td>siosc-adh</td>          <td>sios-cadh</td></tr>
+<tr><td>craic-eann</td>         <td>crai-ceann</td></tr>
+<tr><td>ceann-aithe</td>        <td>cean-naithe</td></tr>
+<tr><td>tuairt-eáil</td>        <td>tuair-teáil</td></tr>
+<tr><td>comh-alta</td>          <td>com-halta</td></tr>
+</table><br><br>
 The last, of course, is an abomination of the worst kind.
 </p>
 
 <hr>
 <h2>Known bugs or ambiguities</h2>
 <ul>
-<li>These patterns do nothing to prevent a break from occuring
-after a prefix "t-" or "n-" in Irish; you'll have to manage
-this on your own (with an \mbox, say), keeping in mind the
-constraint that TeX won't allow a hyphenation at any other point
-in such a word.
 <li>The word "record" is a well-known example of 
 an English word where the proper hyphenation depends on 
-context ("re-cord" vs. "rec-ord").  
+context (verb "re-cord" vs. noun "rec-ord").  
 A strict adherence to "morphological" hyphenation in Irish leads to
 a number of amusing (and highly-improbable) ambiguities:
 <ul>
-<li>bhrach-taí "used to be fermented" (broad stem) vs. bhracht-aí "sappiest"
-<li>cháint-í "most critical" (no hyphen) vs. cháin-tí "used to be taxed"
-<li>gcoirt-í "may you tan" (no hyphen) vs. gcoir-tí "used to be worn out"
-<li>chreataí "used to be shaken" (no hyphen) vs. chreat-aí "shakiest"
-<li>doir-tear "breeds" vs. doirt-ear "spills"
-<li>fhuad-ar "bustle" vs. fhua-dar "they sewed"
-<li>ngor-taí "used to be incubated" vs. ngort-aí "may you injure"
-<li>lé-amar "we read" (past) vs. léam-ar "lemur"
-<li>luad-ar "movement" vs. lua-dar "they mentioned"
-<li>réalt-aí "stars" vs. réal-taí "used to be developed"
-<li>thiom-áin-tí "used to be driven" vs. thiom-áint-í ("drives")
+<li><i lang="ga">bhrach-taí</i> "used to be fermented" (broad stem) vs. <i lang="ga">bhracht-aí</i> "sappiest"
+<li><i lang="ga">cháint-í</i> "most critical" (no hyphen) vs. <i lang="ga">cháin-tí</i> "used to be taxed"
+<li><i lang="ga">gcoirt-í</i> "may you tan" (no hyphen) vs. <i lang="ga">gcoir-tí</i> "used to be worn out"
+<li><i lang="ga">chreataí</i> "used to be shaken" (no hyphen) vs. <i lang="ga">chreat-aí</i> "shakiest"
+<li><i lang="ga">doir-tear</i> "breeds" vs. <i lang="ga">doirt-ear</i> "spills"
+<li><i lang="ga">fhuad-ar</i> "bustle" vs. <i lang="ga">fhua-dar</i> "they sewed"
+<li><i lang="ga">ngor-taí</i> "used to be incubated" vs. <i lang="ga">ngort-aí</i> "may you injure"
+<li><i lang="ga">lé-amar</i> "we read" (past) vs. <i lang="ga">léam-ar</i> "lemur"
+<li><i lang="ga">luad-ar</i> "movement" vs. <i lang="ga">lua-dar</i> "they mentioned"
+<li><i lang="ga">réalt-aí</i> "stars" vs. <i lang="ga">réal-taí</i> "used to be developed"
+<li><i lang="ga">thiom-áin-tí</i> "used to be driven" vs. <i lang="ga">thiom-áint-í</i> "drives"
 </ul>
+In <i>gahyph.tex</i>, these words are placed (unhyphenated)
+inside a "\hyphenation{}" statement so that TeX will not apply
+the usual rule set to them.
 <li>
 Note there is also a potential difficulty with words like
-"bainte" which can be viewed morphologically as "bain+te"
-(i.e. past participle) or as "baint+e" (genitive of verbal noun).
-The patterns above should _disallow_ the past participle hyphenation.
-Here are the relevant words:
+<i lang="ga">bainte</i> which can be viewed morphologically as
+<i lang="ga">bain+te</i>
+(i.e. past participle) or as <i lang="ga">baint+e</i>
+(genitive of a second declension noun).
+It seems sensible, therefore, to <em>disallow</em> hyphenation
+according to the past participle rule in such cases,
+and the patterns have been designed to guarantee this.
+Here are the other words to which this applies:
+<i lang="ga">
 athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
 deighilte, déroinnte, diomailte, dúbailte, easmailte, eitilte,
 fóinte, foroinnte, fuascailte, meilte, múscailte, oscailte, roinnte,
-satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte
-
+satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte</i>.
 Other past participles have the same ambiguity "accidentally":
-ciste (cist="a cyst"), coirte (coirt="tree bark"),
-deilte (deilt="delta"), feilte (feilt="felt")
+<i lang="ga">ciste</i> (<i lang="ga">cist</i>="a cyst"), <i lang="ga">coirte</i> (<i lang="ga">coirt</i>="tree bark"),
+<i lang="ga">deilte</i> (<i lang="ga">deilt</i>="delta"), <i lang="ga">feilte</i> (<i lang="ga">feilt</i>="felt")
 </ul>
 
 
@@ -95,12 +120,10 @@ deilte (deilt="delta"), feilte (feilt="felt")
 </div>
 <div class="navigation">
 <a href = "index.html">Home</a><br>
+<a href = "usaid.html">Usage</a><br>
 Details<br>
 <a href = "mile.html">Top 1000</a><br>
 <a href = "/gaeilge.html">Projects</a><br>
-<p class="centered">
-<img src="gram.jpg" alt="dictionary excerpt" height="160" width="125">
-</p>
 </div>
 </body>
 </html>
