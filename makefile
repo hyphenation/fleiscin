@@ -69,7 +69,7 @@ clean :
 
 distclean :
 	make clean
-	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt
+	rm -f ga.pat ga.dic todo.dic gahyph.tex hyph_ga_IE.* mile.dic mile.txt ga-nlc.dic ga-nlc.pat NLC mile.html
 #############################################################################                2-grams stuff for adding to tosaigh.pat          
 #   1/31/04-- turns out this actually makes ga.pat BIGGER...
 splits.txt : ga.dic
