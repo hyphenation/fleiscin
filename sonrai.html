@@ -76,22 +76,35 @@ The last, of course, is an abomination of the worst kind.
 <li>The word "record" is a well-known example of 
 an English word where the proper hyphenation depends on 
 context (verb "re-cord" vs. noun "rec-ord").  
-A strict adherence to "morphological" hyphenation in Irish leads to
-a number of amusing (and highly-improbable) ambiguities:
+A strict adherence to "morphological" hyphenation in Irish 
+leads to a number of amusing (and highly-improbable) ambiguities,
+many arising from the not-particularly-distinctive form
+of the imperfect autonomous:
 <ul>
 <li><i lang="ga">bhrach-taí</i> "used to be fermented" (broad stem) vs. <i lang="ga">bhracht-aí</i> "sappiest"
 <li><i lang="ga">cháint-í</i> "most critical" (no hyphen) vs. <i lang="ga">cháin-tí</i> "used to be taxed"
-<li><i lang="ga">gcoirt-í</i> "may you tan" (no hyphen) vs. <i lang="ga">gcoir-tí</i> "used to be worn out"
+<li><i lang="ga">Cheilt-í</i> "most Celtic" (no hyphen) vs. <i lang="ga">Cheil-tí</i> "used to be concealed"
+<li><i lang="ga">chist-í</i> "treasures" (no hyphen) vs. <i lang="ga">chis-tí</i> "used to be handicapped"
+<li><i lang="ga">gcoirtí</i> "may you tan" (no hyphen) vs. <i lang="ga">gcoir-tí</i> "used to be worn out"
 <li><i lang="ga">chreataí</i> "used to be shaken" (no hyphen) vs. <i lang="ga">chreat-aí</i> "shakiest"
 <li><i lang="ga">doir-tear</i> "breeds" vs. <i lang="ga">doirt-ear</i> "spills"
 <li><i lang="ga">fhuad-ar</i> "bustle" vs. <i lang="ga">fhua-dar</i> "they sewed"
-<li><i lang="ga">ngor-taí</i> "used to be incubated" vs. <i lang="ga">ngort-aí</i> "may you injure"
+<li><i lang="ga">fhuaf-ar</i> "odious" vs. <i lang="ga">fhua-far</i> "one will sew"
+<li><i lang="ga">ghais-tí</i> "used to gush" vs. <i lang="ga">ghaist-í</i> "traps" (no hyphen)
+<li><i lang="ga">gheal-taí</i> "used to be brightened" vs. <i lang="ga">ghealt-aí</i> "lunatics"
+<li><i lang="ga">ghor-taí</i> "used to be incubated" vs. <i lang="ga">ghort-aí</i> "may you injure"
+<li><i lang="ga">na haist-í</i> "hatches" (no hyphen) vs. <i lang="ga">na hais-tí</i> "essays"
 <li><i lang="ga">lé-amar</i> "we read" (past) vs. <i lang="ga">léam-ar</i> "lemur"
 <li><i lang="ga">luad-ar</i> "movement" vs. <i lang="ga">lua-dar</i> "they mentioned"
+<li><i lang="ga">meat-aí</i> "most perishable" vs. <i lang="ga">mea-taí</i> "used to waste"
 <li><i lang="ga">réalt-aí</i> "stars" vs. <i lang="ga">réal-taí</i> "used to be developed"
+<li><i lang="ga">ríf-ear</i> "reefer" (Collins Gem) vs. <i lang="ga">rí-fear</i> "will tighten"
+<li><i lang="ga">shá-dar</i> "they stabbed" vs. <i lang="ga">shád-ar</i> "solder"
+<li><i lang="ga">shá-faí</i> "one would stab" vs. <i lang="ga">sháf-aí</i> "ax handle" (genitive)
+<li><i lang="ga">speal-ta</i> "mowed" vs. <i lang="ga">spealt-a</i> "milt" (genitive, no hyphen)
 <li><i lang="ga">thiom-áin-tí</i> "used to be driven" vs. <i lang="ga">thiom-áint-í</i> "drives"
 </ul>
-In <i>gahyph.tex</i>, these words are placed (unhyphenated)
+In <i>gahyph.tex</i>, these words are placed
 inside a "\hyphenation{}" statement so that TeX will not apply
 the usual rule set to them.
 <li>
@@ -99,11 +112,13 @@ Note there is also a potential difficulty with words like
 <i lang="ga">bainte</i> which can be viewed morphologically as
 <i lang="ga">bain+te</i>
 (i.e. past participle) or as <i lang="ga">baint+e</i>
-(genitive of a second declension noun).
-It seems sensible, therefore, to <em>disallow</em> hyphenation
-according to the past participle rule in such cases,
-and the patterns have been designed to guarantee this.
-Here are the other words to which this applies:
+(genitive of a second declension noun).   The same holds
+if the noun forms admits a plural, e.g.
+<i lang="ga">bhaint+í</i> could also be the imperfect
+autonomous <i lang="ga">bhain+tí</i>.
+The current set of patterns is designed to allow
+the past participle hyphenation in most cases.
+Here are the other words for which this is relevant:
 <i lang="ga">
 athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
 deighilte, déroinnte, diomailte, dúbailte, easmailte, eitilte,
@@ -112,6 +127,19 @@ satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte</i>.
 Other past participles have the same ambiguity "accidentally":
 <i lang="ga">ciste</i> (<i lang="ga">cist</i>="a cyst"), <i lang="ga">coirte</i> (<i lang="ga">coirt</i>="tree bark"),
 <i lang="ga">deilte</i> (<i lang="ga">deilt</i>="delta"), <i lang="ga">feilte</i> (<i lang="ga">feilt</i>="felt")
+The noun <i lang="ga">cruachta</i> is a third declension example.
+<li>Finally, there are some classes of true "bugs".  These are extremely
+rare, on the order of 1 in every 2500 hyphens found by the 
+rule set is "bad".  For example, a first declension verb ending in 
+"ach" or "och" in the imperfect autonomous (e.g. <i lang="ga">chuach-taí</i>)
+is often mistaken for the plural of a fictional third declension
+feminine noun 
+(in this case <i lang="ga">*cuacht</i>).  Other examples:
+<i lang="ga">cineach-taí, cloch-taí, creach-taí, croch-taí,
+dreach-taí, féach-taí, frioch-taí, lámhach-taí, préach-taí, scréach-taí,
+smeach-taí, speach-taí, spléach-taí, spoch-taí, spréach-taí</i>. 
+These examples are not placed in the "\hyphenation{}" block
+in the hope that tweaking the rule set will rectify them.
 </ul>
 
 
