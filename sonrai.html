@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <title>Irish Hyphenation: Details</title>
+  <meta http-equiv="Content-Language" content="en">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="description" content="Description of hyphenation patterns for the Irish language">
+  <meta name="keywords" content="hyphenation, TeX, LaTeX, Gaeilge, Irish language">
+  <meta name="author" content="Kevin P. Scannell">
+  <link rel="stylesheet" href="../kps.css" type="text/css">
+</head>
+
+<body>
+<div class="content">
+<h1>Irish Hyphenation:<br>
+Details</h1>
+
+<hr>
+<h2>TeX hyphenation algorithm</h2>
+<p>
+</p>
+
+<hr>
+<h2>Developing patterns for Irish</h2>
+<p>
+Another basic heuristic was, for syncopated words, to include
+a hyphen at the point of syncopation; e.g. 
+"ciog-al" and "ciog-lach".
+</p>
+
+<hr>
+<h2>Results</h2>
+<p>
+The resulting hyphenation patterns are very much "etymological"
+vs. "phonological".   As a consequence, they do not always
+agree with hyphenations I've found in texts.  For instance:
+
+ These patterns             Corpus
+  "Ceilt-each"     vs.    "Ceil-teach"
+  "siosc-adh"      vs.    "sios-cadh"
+  "craic-eann"     vs.    "crai-ceann"
+  "ceann-aithe"    vs.    "cean-naithe"
+  "tuairt-eáil"    vs.    "tuair-teáil"
+  "comh-alta"      vs.    "com-halta"
+
+The last, of course, is an abomination of the worst kind.
+</p>
+
+<hr>
+<h2>Known bugs or ambiguities</h2>
+<ul>
+<li>These patterns do nothing to prevent a break from occuring
+after a prefix "t-" or "n-" in Irish; you'll have to manage
+this on your own (with an \mbox, say), keeping in mind the
+constraint that TeX won't allow a hyphenation at any other point
+in such a word.
+<li>The word "record" is a well-known example of 
+an English word where the proper hyphenation depends on 
+context ("re-cord" vs. "rec-ord").  
+A strict adherence to "morphological" hyphenation in Irish leads to
+a number of amusing (and highly-improbable) ambiguities:
+<ul>
+<li>bhrach-taí "used to be fermented" (broad stem) vs. bhracht-aí "sappiest"
+<li>cháint-í "most critical" (no hyphen) vs. cháin-tí "used to be taxed"
+<li>gcoirt-í "may you tan" (no hyphen) vs. gcoir-tí "used to be worn out"
+<li>chreataí "used to be shaken" (no hyphen) vs. chreat-aí "shakiest"
+<li>doir-tear "breeds" vs. doirt-ear "spills"
+<li>fhuad-ar "bustle" vs. fhua-dar "they sewed"
+<li>ngor-taí "used to be incubated" vs. ngort-aí "may you injure"
+<li>lé-amar "we read" (past) vs. léam-ar "lemur"
+<li>luad-ar "movement" vs. lua-dar "they mentioned"
+<li>réalt-aí "stars" vs. réal-taí "used to be developed"
+<li>thiom-áin-tí "used to be driven" vs. thiom-áint-í ("drives")
+</ul>
+<li>
+Note there is also a potential difficulty with words like
+"bainte" which can be viewed morphologically as "bain+te"
+(i.e. past participle) or as "baint+e" (genitive of verbal noun).
+The patterns above should _disallow_ the past participle hyphenation.
+Here are the relevant words:
+athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
+deighilte, déroinnte, diomailte, dúbailte, easmailte, eitilte,
+fóinte, foroinnte, fuascailte, meilte, múscailte, oscailte, roinnte,
+satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte
+
+Other past participles have the same ambiguity "accidentally":
+ciste (cist="a cyst"), coirte (coirt="tree bark"),
+deilte (deilt="delta"), feilte (feilt="felt")
+</ul>
+
+
+<hr>
+<em>© Cóipcheart/Copyright 2004 Kevin P. Scannell</em><br><br>
+</div>
+<div class="navigation">
+<a href = "index.html">Home</a><br>
+Details<br>
+<a href = "mile.html">Top 1000</a><br>
+<a href = "/gaeilge.html">Projects</a><br>
+<p class="centered">
+<img src="gram.jpg" alt="dictionary excerpt" height="160" width="125">
+</p>
+</div>
+</body>
+</html>
