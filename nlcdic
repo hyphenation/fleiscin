@@ -1,0 +1,9 @@
+#!/bin/bash
+# assumes ga.dic is up to date (taken care of by makefile)
+(cat ga.dic; cat ga.dic | tr -d '!') | tr "[:upper:]" "[:lower:]" | sort | sed 'N; s/\n/ /' > done.txt
+cat NLC |
+while read x
+do
+	egrep "^${x} " done.txt | sed 's/^[^ ]* //'
+done
+rm -f done.txt
