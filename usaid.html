@@ -93,6 +93,15 @@ One could try using "\catcode" to declare apostrophes to be "letters",
 but this forces you to include spaces when entering acute accents:
 <i lang="ga">n\' aisi\' un</i>.   Instead, since apostrophes occur relatively infrequently,
 it is easier to insert discretionary hyphens when needed.
+<li>For example, since 
+<i lang="ga">amh-ras</i> is a legal hyphenation, it follows
+that <i lang="ga">drochamh-ras</i> should be also, though naturally one would
+much prefer <i lang="ga">droch-amhras</i>.
+Unfortunately TeX has no mechanism for assigning "weights" to different
+hyphen points in the same word, so you will have to beware of such
+examples on your own.
+<li>See the list of bugs at the end of the <a href="sonrai.html">Details</a>
+page.
 </ul>
 
 <hr>
