@@ -1,0 +1,71 @@
+% Hyphenation patterns for Irish
+% Copyright (C) 2004 Kevin P. Scannell <scannell@slu.edu>
+%
+% This program is free software; you can redistribute it and/or
+% modify it under the terms of the GNU General Public License
+% as published by the Free Software Foundation; either version 2
+% of the License, or (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+%%% ====================================================================
+%%%  @TeX-hyphen-file{
+%%%     author          = "Kevin P. Scannell",
+%%%     version         = "1.0",
+%%%     date            = "23 January 2004",
+%%%     time            = "15:46:12 CST",
+%%%     filename        = "gahyph.tex",
+%%%     email           = "scannell@slu.edu",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "TeX, hyphen, Irish, Gaeilge",
+%%%     supported       = "yes",
+%%%     abstract        = "Hyphenation patterns for Irish (Gaeilge)",
+%%%     docstring       = "This file contains the hyphenation patterns
+%%%                        for the Irish language",
+%%%  }
+%%% ====================================================================
+%
+%    I know of no written standards for hyphenation of Irish;
+%    the patterns below were bootstrapped from an initial
+%    database of hyphenated words extracted from actual
+%    printed material.   This database was augmented through
+%    the use of some "sed" scripts which added hyphens in obvious 
+%    places: after standard prefixes, before morphological features
+%    (verb endings, plural endings, etc.), and inside compound words.
+%    I then performed a series of bootstrap steps using Patgen
+%    and further refining with sed.
+%  
+%    The resulting hyphenation patterns are very much "etymological"
+%    vs. "phonological".   As a consequence, they do not always
+%    agree with hyphenations I've found in texts.  For instance:
+%
+%     These patterns             Corpus
+%      "Ceilt-each"     vs.    "Ceil-teach"
+%      "siosc-adh"      vs.    "sios-cadh" 
+%      "craic-eann"     vs.    "crai-ceann"
+%      "ceann-aithe"    vs.    "cean-naithe"
+%      "tuairt-eáil"    vs.    "tuair-teáil"
+%      "comh-alta"      vs.    "com-halta"
+%
+%    The last, of course, is an abomination of the worst kind.
+%
+%    Please report incorrect hyphenations to the author at the 
+%    email address above.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\message{Hyphenation patterns `gahyph.tex' Version 1.0 <2004/01/22>}
+\catcode`^^c1=11 \lccode`^^c1=`^^e1 \uccode`^^c1=`^^c1    % \'A
+\catcode`^^c9=11 \lccode`^^c9=`^^e9 \uccode`^^c9=`^^c9    % \'E
+\catcode`^^cd=11 \lccode`^^cd=`^^ed \uccode`^^cd=`^^cd    % \'\I
+\catcode`^^d3=11 \lccode`^^d3=`^^f3 \uccode`^^d3=`^^d3    % \'O
+\catcode`^^da=11 \lccode`^^da=`^^fa \uccode`^^da=`^^da    % \'U
+\catcode`^^e1=11 \lccode`^^e1=`^^e1 \uccode`^^e1=`^^c1    % \'a
+\catcode`^^e9=11 \lccode`^^e9=`^^e9 \uccode`^^e9=`^^c9    % \'e
+\catcode`^^ed=11 \lccode`^^ed=`^^ed \uccode`^^ed=`^^cd    % \'\i
+\catcode`^^f3=11 \lccode`^^f3=`^^f3 \uccode`^^f3=`^^d3    % \'o
+\catcode`^^fa=11 \lccode`^^fa=`^^fa \uccode`^^fa=`^^da    % \'u
+
+\patterns{
+}

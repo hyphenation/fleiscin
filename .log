@@ -1,0 +1,30 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2003.9.29)  22 JAN 2004 19:55
+**quit
+(/usr/share/texmf/tex/latex/tools/.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+File ignored)
+*
+(Please type a command or say `\end')
+*\end
+
+*\end
+! TeX capacity exceeded, sorry [input stack size=1500].
+\end #1->\csname end#1
+                      \endcsname \@checkend {#1}\expandafter \endgroup \if@e...
+<*> \end
+        
+If you really absolutely need more capacity,
+you can ask a wizard to enlarge me.
+
+ 
+Here is how much of TeX's memory you used:
+ 5 strings out of 95847
+ 115 string characters out of 1195946
+ 44507 words of memory out of 1000001
+ 3034 multiletter control sequences out of 10000+50000
+ 3640 words of font info for 14 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 1500i,0n,1500p,84b,7s stack positions out of 1500i,500n,5000p,200000b,5000s
+No pages of output.
