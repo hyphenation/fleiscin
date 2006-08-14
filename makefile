@@ -7,6 +7,7 @@ install :
 	cp -f gahyph.tex /usr/share/texmf/tex/generic/hyphen
 	chmod 444 /usr/share/texmf/tex/generic/hyphen/gahyph.tex
 	(cd /usr/share/texmf/web2c; initex latex.ltx; chmod 444 latex.fmt)
+	(cd /usr/share/texmf/pdftex/latex/config; pdfinitex pdflatex.ini; chmod 444 pdflatex.fmt; mv -f pdflatex.fmt /usr/share/texmf/web2c)
 #	cp -f gahyph.tex /usr/share/texmf/source/generic/babel
 #	chmod 444 /usr/share/texmf/source/generic/babel/gahyph.tex
 
@@ -79,8 +80,8 @@ distclean :
 splits.txt : ga.dic
 	cat ga.dic | sed 's/\(.\)!\(.\)!/\1!\2\2!/g' | egrep -o '.!.' | tr -d '!' | sort -u > splits.txt 
 
-twograms.txt : ga.dic
-	cat ga.dic | tr -d '!' | ngrams -s 2 | egrep -v '[<>]' | egrep '[0-9]{3}' | sed 's/^ *[0-9]* //' | sort > twograms.txt
+# twograms.txt : ga.dic
+#	cat ga.dic | tr -d '!' | ngrams -s 2 | egrep -v '[<>]' | egrep '[0-9]{3}' | sed 's/^ *[0-9]* //' | sort > twograms.txt
 
 # then do:
 # cat twograms.txt | while read x; do if ! egrep "^${x}$" splits.txt > /dev/null; then echo "${x}" | sed 's/^\(.\)\(.\)/\16\2/'; fi; done
@@ -113,7 +114,7 @@ mile.dic : ga.pat ga.tra mile.txt
 
 # implicitly depends on entire corpus
 mile.txt :
-	brillcorp | keepok -n | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
+	brillcorp | togail ga keepok | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -r -n | sed 's/^ *[0-9]* //' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
 
 
 #############################################################################
@@ -122,7 +123,7 @@ mile.txt :
 #	cat ga.dic | tr -d "!" | tr "[:upper:]" "[:lower:]" | sort -u > done.txt
 
 NLC :
-	nlcorpas | tokenize | sort | keepok -n | egrep -v '.{35}' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | tr "[:upper:]" "[:lower:]" | LC_ALL=C egrep -v '[a-záéíóú0-9 ]' | sort -u > NLC
+	togail ga dump | togail ga token | egrep -v '.{35}' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | togail ga keepok | tr "[:upper:]" "[:lower:]" | sort -u > NLC
 
 # used to use patgen to do this; build the "ga.pat" ruleset and then
 # run "NLC" through it: 
@@ -202,7 +203,7 @@ hyphtest :
 #   never pursued the idea of extracting example from
 #   Tobar na Gaedhilge...
 tobar : FORCE
-	cat /mathhome/kps/gaeilge/diolaim/tobar/* | tokenize | egrep '...*-' | sort -u > tobar
+	cat /mathhome/kps/gaeilge/diolaim/tobar/* | togail ga token | egrep '...*-' | sort -u > tobar
 ##############################################################################
 
 FORCE :
