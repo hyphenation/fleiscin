@@ -23,21 +23,21 @@ The installation may vary according to the distribution
 of TeX/LaTeX that you use (I use <a href="http://www.tug.org/teTeX/">teTeX</a>
 as packaged by <a href="http://www.gentoo.org/">Gentoo Linux</a>).
 Path names in the instructions are given relative to your system
-<i>texmf</i> directory; for me this is <i>/usr/share/texmf</i>.
+<i>texmf</i> directory; for me this is <code>/usr/share/texmf</code>.
 </p>
 
 <ol>
 <li>Download the file <i>gahyph.tex</i> from 
 <a href = "http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.
-<li>Copy it into the directory <i>tex/generic/hyphen</i>.
+<li>Copy it into the directory <code>tex/generic/hyphen</code>.
 <li>Insert a line of the form 
 <pre>
 irish   gahyph.tex
 </pre>
-in the file <i>tex/generic/config/language.dat</i>.
-<li>Go into the subdirectory <i>web2c</i> and run
-<i>initex</i> to compile the patterns and
-rebuild the <i>latex.fmt</i> file:
+in the file <code>tex/generic/config/language.dat</code>.
+<li>Go into the subdirectory <code>web2c</code> and run
+<code>initex</code> to compile the patterns and
+rebuild the <code>latex.fmt</code> file:
 <pre>
 # initex latex.ltx
 </pre>
@@ -58,7 +58,7 @@ line above to:
 <pre>
 \usepackage[english,irish]{babel}
 </pre>
-and use "\selectlanguage" in the body of the document as follows:
+and use <code>\selectlanguage</code> in the body of the document as follows:
 <pre>
 \begin{document}
 Is \'easca na fleisc\'{\i}n\'{\i}
@@ -87,9 +87,9 @@ but not for <i lang="ga">t-idirnáisiúnachas</i>.   You will have to add your
 own discretionary hyphens if such a word needs to be broken, e.g.
 <i lang="ga">t-idir\-n\'aisi\'un\-achas</i>.
 <li>Conversely, you may want to <em>prevent</em> breaks at 
-"t-" or "n-"; for this you can enclose the word in an "\mbox".
+"t-" or "n-"; for this you can enclose the word in an <code>\mbox</code>.
 <li>Similar remarks hold for words containing apostrophes.
-One could try using "\catcode" to declare apostrophes to be "letters",
+One could try using <code>\catcode</code> to declare apostrophes to be "letters",
 but this forces you to include spaces when entering acute accents:
 <i lang="ga">n\' aisi\' un</i>.   Instead, since apostrophes occur relatively infrequently,
 it is easier to insert discretionary hyphens when needed.
@@ -129,7 +129,7 @@ should be helpful:
 Usage<br>
 <a href = "sonrai.html">Details</a><br>
 <a href = "mile.html">Top 1000</a><br>
-<a href = "/gaeilge.html">Projects</a><br>
+<a href = "/nlp.html">Projects</a><br>
 </div>
 </body>
 </html>
