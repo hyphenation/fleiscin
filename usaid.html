@@ -30,6 +30,10 @@ Path names in the instructions are given relative to your system
 <li>Download the file <i>gahyph.tex</i> from 
 <a href = "http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.
 <li>Copy it into the directory <code>tex/generic/hyphen</code>.
+<li>Run <code>texhash</code> to tell LaTeX about the new file:
+<pre>
+# texhash
+</pre>
 <li>Insert a line of the form 
 <pre>
 irish   gahyph.tex
@@ -40,6 +44,10 @@ in the file <code>tex/generic/config/language.dat</code>.
 rebuild the <code>latex.fmt</code> file:
 <pre>
 # initex latex.ltx
+</pre>
+or else rebuild everything (pdflatex, etc.) with <code>fmtutil</code>:
+<pre>
+# fmtutil --all
 </pre>
 </ol>
 
