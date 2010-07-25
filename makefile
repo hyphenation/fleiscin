@@ -15,7 +15,7 @@ dist : hyph_ga_IE.zip
 
 gahyph.tex : ga.pat gahyphtemplate.tex
 	rm -f gahyph.tex
-	cat ga.pat | sed 's/á/^^e1/g; s/é/^^e9/g; s/í/^^ed/g; s/ó/^^f3/g; s/ú/^^fa/g;' > ga.pat.tmp
+	cat ga.pat | LC_ALL=C sed 's/á/^^e1/g; s/é/^^e9/g; s/í/^^ed/g; s/ó/^^f3/g; s/ú/^^fa/g;' > ga.pat.tmp
 	sed '/\\patterns{/r ga.pat.tmp' gahyphtemplate.tex > gahyph.tex
 	rm -f ga.pat.tmp
 	chmod 400 gahyph.tex
@@ -38,8 +38,9 @@ ga.pat : ga.dic ga.tra
 # strip out hyphens after 1st and before last TWICE:
 # once before ispell so that "d'" etc. aren't added to "a|treoraigh"
 # and once after since ispell generates such hyphens, e.g. "é|adh", etc.
+#   Note that ispell -e3 only works with latin-1 input (hence latin-1 output) 
 ga.dic : deanta.raw
-	cat deanta.raw | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | ispell -dgaeilgehyph -e3 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | tr "[:upper:]" "[:lower:]" | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" > ga.dic
+	cat deanta.raw | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | sed 's/|\(.\)\//\1\//' | iconv -f utf8 -t iso-8859-1 | ispell -dgaeilgehyph -e3 | iconv -f iso-8859-1 -t utf8 | tr " " "\n" | egrep -v '\/' | sed 's/^\(.\)|/\1/' | sed 's/|\(.\)$$/\1/' | tr "[:upper:]" "[:lower:]" | sort -u | tr "|" "!" | egrep -v -e '-' | egrep -v "'" | iconv -f utf8 -t iso-8859-1 > ga.dic
 
 #  1/30/04, done with todo.raw -> deanta.raw; so no more make target!
 #deanta.raw :
@@ -103,7 +104,7 @@ installhtml : mile.html
 	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
 mile.html : mile.dic miletemp.html
-	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' > mile.dic.temp
+	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' | iconv -f iso-8859-1 -t utf8 > mile.dic.temp
 	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
 	rm -f mile.dic.temp
 
@@ -203,7 +204,7 @@ hyphtest :
 #   never pursued the idea of extracting example from
 #   Tobar na Gaedhilge...
 tobar : FORCE
-	cat /mathhome/kps/gaeilge/diolaim/tobar/* | togail ga token | egrep '...*-' | sort -u > tobar
+	cat /home/kps/gaeilge/diolaim/tobar/* | togail ga token | egrep '...*-' | sort -u > tobar
 ##############################################################################
 
 FORCE :
