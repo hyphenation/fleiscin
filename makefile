@@ -20,16 +20,20 @@ gahyph.tex : ga.pat gahyphtemplate.tex
 	rm -f ga.pat.tmp
 	chmod 400 gahyph.tex
 
-hyph_ga_IE.dic : ga.pat
-	(echo "ISO8859-1"; cat ga.pat) > hyph_ga_IE.dic
-	chmod 644 hyph_ga_IE.dic
-
 hyph_ga_IE.zip : hyph_ga_IE.dic README_hyph_ga_IE.txt
 	zip hyph_ga_IE.zip hyph_ga_IE.dic README_hyph_ga_IE.txt
 
+# change to hyph_ga_IE.dic?
 ga.xml : ambig.txt ga.pat
 	sed '/^<patterns>/r ga.pat' foptemplate.xml > ga.xml
 	sed -i '/^<exceptions>/r ambig.txt' ga.xml
+
+# http://wiki.services.openoffice.org/wiki/Documentation/SL/Using_TeX_hyphenation_patterns_in_OpenOffice.org
+hyph_ga_IE.dic : ga.pat specials.txt substrings.pl
+	perl substrings.pl ga.pat $@ ISO8859-1 2 2
+	cat specials.txt | iconv -f utf8 -t iso-8859-1 >> $@
+	sed -i "/^RIGHTH/s/.*/&\n1'.\nNEXTLEVEL/" $@
+	chmod 644 $@
 
 ga.pat : ga.dic ga.tra
 	patgen ga.dic /dev/null ga.pat ga.tra  < inps
