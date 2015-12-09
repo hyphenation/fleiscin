@@ -72,7 +72,7 @@ bugs.txt : ga.pat ambig.txt
 	rm -f words.sed
 
 ambig.txt : ga.dic
-	cat ga.dic | tr -d '!' | sort | uniq -c | egrep -v '1' | sed 's/^ *[0-9]* //' > ambig.txt
+	cat ga.dic | tr -d '!' | LC_ALL=C sort | LC_ALL=C uniq -c | egrep -v '1' | sed 's/^ *[0-9]* //' > ambig.txt
 
 clean :
 	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt splits.txt twograms.txt
