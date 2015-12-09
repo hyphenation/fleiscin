@@ -3,8 +3,8 @@ Hyphenation dictionary
 
 Language: Irish (ga IE).  
 Origin:   Based on the TeX hyphenation tables 
-License:  GNU GPL
-Author:   Kevin P. Scannell <scannell@slu.edu>
+License:  MIT license
+Author:   Kevin P. Scannell <kscanne at gmail dot com>
 
 HYPH ga IE hyph_ga_IE
 
@@ -18,6 +18,6 @@ is available from CTAN:
 
 http://www.ctan.org/tex-archive/language/hyphenation/
 
-or directly from the author <scannell@slu.edu>.
+or directly from the author.
 
-- Kevin Scannell, 2004-01-23
+- Kevin Scannell
