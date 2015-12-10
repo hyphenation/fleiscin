@@ -26,11 +26,20 @@
 This page describes the hyphenation patterns needed for
 proper typesetting of Irish language text using
 <a href="http://www.tug.org/">TeX</a>,
+<a href="http://www.libreoffice.org/">LibreOffice</a>,
 <a href="http://www.openoffice.org/">OpenOffice.org</a>,
+<a href="http://www.kde.org/applications/office/">KOffice</a>,
 <a href="http://www.gnu.org/software/groff/groff.html">GNU Troff</a>,
 <a href="http://www.scribus.net/">Scribus</a>,
-<a href="http://defoe.sourceforge.net/folio/index.html">Folio</a>,
+<a href="http://defoe.sourceforge.net/folio/folio.html">Folio</a>,
+<a href="https://github.com/mnater/hyphenator">Hyphenator.js</a>,
 and <a href="http://xml.apache.org/fop/index.html">FOP</a>.
+The latest versions of Firefox also include support for
+hyphenation when laying out web pages, and we expect
+other browsers to allow this in the future as well.
+</p>
+
+<p>
 The patterns are derived automatically from a database
 of hyphenated words which should allow easy integration
 into other typesetting systems (as long as they are
@@ -51,12 +60,13 @@ computing resources for minority languages more generally.
 <ul>
 <li>The file <i>gahyph.tex</i> (for use with (La)TeX and GNU troff)
 can be downloaded from <a href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.
-<li>The file <i>hyph_ga_IE.zip</i> (for use with OpenOffice.org or Scribus) can be
-downloaded from the <a href="http://wiki.services.openoffice.org/wiki/Dictionaries#Irish_.28Ireland.29">OpenOffice.org</a> site.
-<li>Since the Apache license is incompatible with the GPL,
-the patterns cannot be distributed with the FOP codebase. 
-You'll need to download <i><a href="ga.xml">ga.xml</a></i> directly
-and install it on your own.
+<li>The patterns can be used with OpenOffice.org by installing 
+<a href="http://extensions.openoffice.org/en/project/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">this extension</a>.
+<li>The file <i>hyph_ga_IE.zip</i> (for use with Scribus, or with
+OpenOffice.org if you'd rather not install the extension) can be
+downloaded from an <a href="http://download.services.openoffice.org/contrib/dictionaries/hyph_ga_IE.zip.mirrorlist">OpenOffice.org mirror</a>.
+<li>The file <i><a href="ga.xml">ga.xml</a></i> can be downloaded
+and installed for use with Apache FOP.
 </ul>
 </p>
 
