@@ -28,6 +28,14 @@ ga.xml : ambig.txt ga.pat
 	sed '/^<patterns>/r ga.pat' foptemplate.xml > ga.xml
 	sed -i '/^<exceptions>/r ambig.txt' ga.xml
 
+# see "Converting the patterns" here:
+# https://github.com/mnater/Hyphenator/blob/wiki/en_AddNewLanguage.md#what-we-have-now
+# after this, take the result and paste into the conversion website
+# and copy the result into ../Hyphenator/patterns/ga.js
+# and submit a pull request
+ga.js: gahyph.tex
+	cat gahyph.tex | sed '1,/^\\patterns/d' | sed '/^}$$/,$$d' | LC_ALL=C sed 's/\^\^e1/á/g; s/\^\^e9/é/g; s/\^\^ed/í/g; s/\^\^f3/ó/g; s/\^\^fa/ú/g;' | tr "\n" " " | iconv -f iso-8859-1 -t utf8 > $@
+
 # http://wiki.services.openoffice.org/wiki/Documentation/SL/Using_TeX_hyphenation_patterns_in_OpenOffice.org
 hyph_ga_IE.dic : ga.pat specials.txt substrings.pl
 	perl substrings.pl ga.pat $@ ISO8859-1 2 2
