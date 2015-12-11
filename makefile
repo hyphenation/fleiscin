@@ -103,11 +103,6 @@ splits.txt : ga.dic
 #############################################################################
 #        web page stuff
 
-installweb : ga.xml
-	make installhtml
-	cp -f ga.xml ${HOME}/public_html/fleiscin
-	chmod 444 ${HOME}/public_html/fleiscin/ga.xml
-
 installhtml : mile.html
 	cp -f index.html ${HOME}/public_html/fleiscin
 	cp -f sonrai.html ${HOME}/public_html/fleiscin
