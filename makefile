@@ -83,7 +83,7 @@ ambig.txt : ga.dic
 	cat ga.dic | tr -d '!' | LC_ALL=C sort | LC_ALL=C uniq -c | egrep -v '1' | sed 's/^ *[0-9]* //' > ambig.txt
 
 clean :
-	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt splits.txt twograms.txt
+	rm -f pattmp* todo.dic todo.tex endings.* flipped.raw longs.txt tobar *.aux *.log ambig.txt *.dvi todo.5 todofull.5 bugs.txt bugs-nlc.txt splits.txt twograms.txt tastail.pdf tastail.aux tastail.log
 
 distclean :
 	make clean
@@ -109,6 +109,8 @@ installhtml : mile.html
 	cp -f mile.html ${HOME}/public_html/fleiscin
 	cp -f tastail.html ${HOME}/public_html/fleiscin
 	cp -f usaid.html ${HOME}/public_html/fleiscin
+	cp -f tastail.png ${HOME}/public_html/fleiscin
+	cp -f tastail.pdf ${HOME}/public_html/fleiscin
 	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
 mile.html : mile.dic miletemp.html
@@ -124,6 +126,9 @@ mile.dic : ga.pat ga.tra mile.txt
 # implicitly depends on entire corpus
 mile.txt :
 	brillcorp | togail ga keepok | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -r -n | sed 's/^ *[0-9]* //' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
+
+tastail.pdf: tastail.tex
+	pdflatex tastail
 
 
 #############################################################################
