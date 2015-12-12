@@ -32,7 +32,7 @@ ga.xml : ambig.txt ga.pat
 # https://github.com/mnater/Hyphenator/blob/wiki/en_AddNewLanguage.md#what-we-have-now
 # after this, take the result and paste into the conversion website
 # and copy the result into ../Hyphenator/patterns/ga.js
-# and submit a pull request
+# and submit a pull request; also occasionally sync to public_html/fleiscin
 ga.js: gahyph.tex
 	cat gahyph.tex | sed '1,/^\\patterns/d' | sed '/^}$$/,$$d' | LC_ALL=C sed 's/\^\^e1/á/g; s/\^\^e9/é/g; s/\^\^ed/í/g; s/\^\^f3/ó/g; s/\^\^fa/ú/g;' | tr "\n" " " | iconv -f iso-8859-1 -t utf8 > $@
 
@@ -107,6 +107,7 @@ installhtml : mile.html
 	cp -f index.html ${HOME}/public_html/fleiscin
 	cp -f sonrai.html ${HOME}/public_html/fleiscin
 	cp -f mile.html ${HOME}/public_html/fleiscin
+	cp -f tastail.html ${HOME}/public_html/fleiscin
 	cp -f usaid.html ${HOME}/public_html/fleiscin
 	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
