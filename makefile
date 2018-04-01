@@ -103,29 +103,24 @@ splits.txt : ga.dic
 #############################################################################
 #        web page stuff
 
-installhtml : mile.html
-	cp -f index.html ${HOME}/public_html/fleiscin
-	cp -f sonrai.html ${HOME}/public_html/fleiscin
-	cp -f mile.html ${HOME}/public_html/fleiscin
-	cp -f tastail.html ${HOME}/public_html/fleiscin
-	cp -f usaid.html ${HOME}/public_html/fleiscin
+# html files now installed by scripts in cadhan.com repo
+installweb:
 	cp -f tastail.png ${HOME}/public_html/fleiscin
 	cp -f tastail.pdf ${HOME}/public_html/fleiscin
-	chmod 444 ${HOME}/public_html/fleiscin/*.html
 
-mile.html : mile.dic miletemp.html
-	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' | iconv -f iso-8859-1 -t utf8 > mile.dic.temp
-	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
-	rm -f mile.dic.temp
+#mile.html : mile.dic miletemp.html
+#	cat mile.dic | head -n 1000 | sed 's/$$/<br>/; s/^/ /' | egrep -n '.' | sed 's/^1[^0-9]/<td width="25%">&/; s/^1000.*/&<\/td>/' | sed 's/^251/<\/td><td width="25%">251/; s/^501/<\/td><td width="25%">501/; s/^751/<\/td><td width="25%">751/' | iconv -f iso-8859-1 -t utf8 > mile.dic.temp
+#	sed '/^Please/r mile.dic.temp' miletemp.html > mile.html
+#	rm -f mile.dic.temp
 
-mile.dic : ga.pat ga.tra mile.txt
-	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
-	cat pattmp.? | tr "." "-" > mile.dic
-	rm -f pattmp.?
+#mile.dic : ga.pat ga.tra mile.txt
+#	(echo "2"; echo "1"; echo "y") | patgen mile.txt ga.pat /dev/null ga.tra
+#	cat pattmp.? | tr "." "-" > mile.dic
+#	rm -f pattmp.?
 
 # implicitly depends on entire corpus
-mile.txt :
-	brillcorp | togail ga keepok | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -r -n | sed 's/^ *[0-9]* //' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
+#mile.txt :
+#	brillcorp | togail ga keepok | tr "[:upper:]" "[:lower:]" | sort | uniq -c | sort -r -n | sed 's/^ *[0-9]* //' | egrep -v '^[Tt]he$$' | egrep -v "'" | egrep -v -e '-' | egrep '^([aiáéíó]$$|..)' | head -n 2500 > mile.txt
 
 tastail.pdf: tastail.tex
 	pdflatex tastail
