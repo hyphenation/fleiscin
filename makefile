@@ -105,6 +105,7 @@ splits.txt : ga.dic
 
 # html files now installed by scripts in cadhan.com repo
 installweb:
+	cp -f tastail.css ${HOME}/public_html/fleiscin
 	cp -f tastail.png ${HOME}/public_html/fleiscin
 	cp -f tastail.pdf ${HOME}/public_html/fleiscin
 
