@@ -1,0 +1,148 @@
+<h2>Developing patterns for Irish</h2>
+<p>
+There is a brief description of the TeX
+hyphenation algorithm on the
+<a target="_blank" href="https://en.wikipedia.org/wiki/TeX#Hyphenation_and_justification">Wikipedia page</a> for TeX, 
+or for more details you can check out
+<a target="_blank" href="https://tug.org/docs/liang/liang-thesis.pdf">Frank Liang's PhD thesis</a> where the algorithm was first described.
+</p>
+
+<p>
+The Irish patterns consist of rules like the following:
+<pre>
+al3i
+a6ll
+al2ann
+geal5a
+</pre>
+Roughly speaking, even numbers prevent a word from being broken
+at the given point, and odd numbers permit a break at the given point.
+Larger numbers carry stronger weight than lower numbers when two rules
+apply. The first rule <code>al3i</code> permits a hyphen after the “l”
+in words like <i>béaliata</i> or <i>galinneall</i>.
+The second rule strongly prevents hyphenation before
+the “ll” in words like <i>timpeallacht</i> or <i>fealltóir</i>.
+The third rule weakly prevents hyphenation after the “l” in 
+words like <i>bialann</i> or <i>dialann</i>.  Note that it also applies
+to the verb <i>gealann</i>, theoretically preventing a desirable
+hyphenation, but is overridden by the fourth rule
+which permits a hyphen at this same spot (since 5 is greater than 2).
+</p>
+
+<p>
+One basic heuristic involves lenition;
+a word should never be broken between a lenitable
+consonant and the “h” indicating the lenition orthographically.
+Thus you will find patterns like <code>c2h</code> and <code>d2h</code>
+in the rule set.  Conversely, if an “h” appears after a vowel
+or non-lenitable consonant, it is usually a good candidate for a hyphen point, 
+as in <i lang="ga">Bói-héam-ach</i> or <i lang="ga">Faran-haít</i>.
+This results in patterns
+of the form <code>i1h</code> and <code>n5h6a</code>.
+</p>
+
+<p>
+Another basic heuristic is, for syncopated words, to include
+a hyphen at the point of syncopation; e.g. 
+<i lang="ga">ciog-al</i> and <i lang="ga">ciog-lach</i>.
+</p>
+
+<hr>
+<h2>Results</h2>
+<p>
+The resulting hyphenation patterns are very much morphological
+vs. phonological (my personal preference).
+As a consequence, they do not always
+agree with hyphenations I've found in actual printed texts.
+For instance:
+</p>
+
+<table lang="ga" class="fleiscin">
+<tr><th>These patterns</th>  <th>Corpus</th></tr>
+<tr><td>Ceilt-each</td>         <td>Ceil-teach</td></tr>
+<tr><td>siosc-adh</td>          <td>sios-cadh</td></tr>
+<tr><td>craic-eann</td>         <td>crai-ceann</td></tr>
+<tr><td>ceann-aithe</td>        <td>cean-naithe</td></tr>
+<tr><td>tuairt-eáil</td>        <td>tuair-teáil</td></tr>
+<tr><td>comh-alta</td>          <td>com-halta</td></tr>
+</table>
+
+<p>
+The last example is of course an abomination of the worst kind.
+</p>
+
+<hr>
+<h2>Known bugs or ambiguities</h2>
+<p>The word “record” is a well-known example of 
+an English word where the proper hyphenation depends on 
+context (verb <i>re-cord</i> vs. noun <i>rec-ord</i>).
+A strict adherence to morphological hyphenation in Irish 
+leads to a number of amusing (and highly-improbable) ambiguities,
+many arising from the not-particularly-distinctive form
+of the imperfect autonomous:
+</p>
+<ul>
+<li><i lang="ga">bhrach-taí</i> “used to be fermented” (broad stem) vs. <i lang="ga">bhracht-aí</i> “sappiest”</li>
+<li><i lang="ga">cháint-í</i> “most critical” (no hyphen) vs. <i lang="ga">cháin-tí</i> “used to be taxed”</li>
+<li><i lang="ga">Cheilt-í</i> “most Celtic” (no hyphen) vs. <i lang="ga">Cheil-tí</i> “used to be concealed”</li>
+<li><i lang="ga">chist-í</i> “treasures” (no hyphen) vs. <i lang="ga">chis-tí</i> “used to be handicapped”</li>
+<li><i lang="ga">gcoirtí</i> “may you tan” (no hyphen) vs. <i lang="ga">gcoir-tí</i> “used to be worn out”</li>
+<li><i lang="ga">chreataí</i> “used to be shaken” (no hyphen) vs. <i lang="ga">chreat-aí</i> “shakiest”</li>
+<li><i lang="ga">doir-tear</i> “breeds” vs. <i lang="ga">doirt-ear</i> “spills”</li>
+<li><i lang="ga">fhuad-ar</i> “bustle” vs. <i lang="ga">fhua-dar</i> “they sewed”</li>
+<li><i lang="ga">fhuaf-ar</i> “odious” vs. <i lang="ga">fhua-far</i> “one will sew”</li>
+<li><i lang="ga">ghais-tí</i> “used to gush” vs. <i lang="ga">ghaist-í</i> “traps” (no hyphen)</li>
+<li><i lang="ga">gheal-taí</i> “used to be brightened” vs. <i lang="ga">ghealt-aí</i> “lunatics”</li>
+<li><i lang="ga">ghor-taí</i> “used to be incubated” vs. <i lang="ga">ghort-aí</i> “may you injure”</li>
+<li><i lang="ga">na haist-í</i> “hatches” (no hyphen) vs. <i lang="ga">na hais-tí</i> “essays”</li>
+<li><i lang="ga">lé-amar</i> “we read” (past) vs. <i lang="ga">léam-ar</i> “lemur”</li>
+<li><i lang="ga">luad-ar</i> “movement” vs. <i lang="ga">lua-dar</i> “they mentioned”</li>
+<li><i lang="ga">meat-aí</i> “most perishable” vs. <i lang="ga">mea-taí</i> “used to waste”</li>
+<li><i lang="ga">réalt-aí</i> “stars” vs. <i lang="ga">réal-taí</i> “used to be developed”</li>
+<li><i lang="ga">ríf-ear</i> “reefer” (Collins Gem) vs. <i lang="ga">rí-fear</i> “will tighten”</li>
+<li><i lang="ga">shá-dar</i> “they stabbed” vs. <i lang="ga">shád-ar</i> “solder”</li>
+<li><i lang="ga">Shá-imis</i> “we stab” vs. <i lang="ga">Sháim-is</i> “Sami language”</li>
+<li><i lang="ga">shá-faí</i> “one would stab” vs. <i lang="ga">sháf-aí</i> “ax handle” (genitive)</li>
+<li><i lang="ga">speal-ta</i> “mowed” vs. <i lang="ga">spealt-a</i> “milt” (genitive, no hyphen)</li>
+<li><i lang="ga">thiom-áin-tí</i> “used to be driven” vs. <i lang="ga">thiom-áint-í</i> “drives”</li>
+</ul>
+
+<p>
+In the rules file, these words are placed
+inside a <code>\hyphenation{}</code> statement so that TeX will not apply
+the usual rule set to them.
+</p>
+
+<p>
+Note there is also a potential difficulty with words like
+<i lang="ga">bainte</i> which can be viewed morphologically as
+<i lang="ga">bain+te</i>
+(i.e. past participle) or as <i lang="ga">baint+e</i>
+(genitive of a second declension noun).   The same holds
+if the noun forms admits a plural, e.g.
+<i lang="ga">bhaint+í</i> could also be the imperfect
+autonomous <i lang="ga">bhain+tí</i>.
+The current set of patterns is designed to allow
+the past participle hyphenation in most cases.
+Here are the other words for which this is relevant:
+<i lang="ga">athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
+deighilte, déroinnte, diomailte, dúbailte, easmailte, eitilte,
+fóinte, foroinnte, fuascailte, meilte, múscailte, oscailte, roinnte,
+satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte</i>.
+Other past participles have the same ambiguity “accidentally”:
+<i lang="ga">ciste</i> (<i lang="ga">cist</i>=“a cyst”), <i lang="ga">coirte</i> (<i lang="ga">coirt</i>=“tree bark”),
+<i lang="ga">deilte</i> (<i lang="ga">deilt</i>=“delta”), <i lang="ga">feilte</i> (<i lang="ga">feilt</i>=“felt”)
+The noun <i lang="ga">cruachta</i> is a third declension example.
+</p>
+
+<p>
+Finally, there are some true bugs.
+They are extremely rare: as of version 1.0 
+the patterns do not produce <em>any</em>
+hyphen points which are not in the database
+and miss just 10 out of 314,639 hyphen points. 
+This is not to say that you won't discover any
+bad hyphenations, but that they are the fault of
+the underlying database and not of the algorithms
+used to produce the patterns.
+</p>

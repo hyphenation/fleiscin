@@ -1,113 +1,148 @@
-<h2>Developing patterns for Irish</h2>
+<h2>Rialacha fleiscínithe don Ghaeilge</h2>
 <p>
-I plan on including a detailed description of the 
-initial data set and bootstrapping process here.
-For now, just a couple of quick rules while I'm thinking of them:
+Gheobhaidh tú cur síos garbh ar an algartam fleiscínithe in TeX ar
+<a target="_blank" href="https://en.wikipedia.org/wiki/TeX#Hyphenation_and_justification">an leathanach Vicipéide seo</a> (i mBéarla), 
+agus is féidir leat na mionsonraí go léir a fháil ó
+<a target="_blank" href="https://tug.org/docs/liang/liang-thesis.pdf">thráchtas PhD Frank Liang</a>, áit a ndearnadh cur síos ar an algartam i dtús báire.
 </p>
 
 <p>
-One basic heuristic involves lenition;
-a word should never be broken between a lenitable
-consonant and the "h" indicating the lenition orthographically.
-Thus you will find patterns like "c4h", "d4h", etc. in the
-rule set.  Conversely, if an "h" appears after a non-lenitable
-consonant, it is usually a good candidate for a hyphen point, 
-as in <i lang="ga">Bói-héam-ach</i> or <i lang="ga">Faran-haít</i>.
-This results in patterns
-of the form "i1h", "n1h", etc.
+Seo ceithre cinn de na 6000+ riail sa gcomhad Gaeilge:
+<pre>
+al3i
+a6ll
+al2ann
+geal5a
+</pre>
+Go bunúsach, cuireann na ré-uimhreacha (2,4,6) cosc ar fhleiscín ag an bpointe
+atá i gceist, agus ceadaíonn corruimhreacha (1,3,5) fleiscín ag an bpointe sin.
+Tá éifeacht níos láidre ag na huimhreacha níos mó.
+Ceadaíonn an chéad riail <code>al3i</code> fleiscín tar éis an “l”
+i bhfocail ar nós <i>béaliata</i> nó <i>galinneall</i>.
+Cuireann an dara riail cosc láidir ar fhleiscín roimh an “ll”
+i bhfocail ar nós <i>timpeallacht</i> nó <i>fealltóir</i>.
+Cuireann an tríú riail cosc (lag) ar fhleiscín tar éis an “l”
+i bhfocail ar nós <i>bialann</i> nó <i>dialann</i>.
+Ach tabhair faoi deara gur féidir an riail seo a chur i bhfeidhm
+ar an mbriathar <i>gealann</i> freisin, rud a chuirfeadh cosc ar fhleiscín
+úsáideach (<i>geal-ann</i>),
+ach ar an dea-uair, ceadaíonn an cheathrú riail fleiscín
+ag an bpointe céanna (toisc go bhfuil 5 níos mó ná 2).
 </p>
 
 <p>
-Another basic heuristic is, for syncopated words, to include
-a hyphen at the point of syncopation; e.g. 
-<i lang="ga">ciog-al</i> and <i lang="ga">ciog-lach</i>.
+Baineann riail ghinearálta amháin leis an séimhiú:
+níor chóir focal a bhriseadh riamh idir consan séimhithe
+agus an “h” ina dhiaidh.
+Dá bharr seo, feicfidh tú rialacha ar nós
+<code>c2h</code> agus <code>d2h</code>
+sa gcomhad. Ar an taobh eile, má tá “h” i ndiaidh guta nó
+consan doshéimhithe (l,n,r), is féidir fleiscín a chur san áit de ghnáth, 
+mar shampla <i lang="ga">Bói-héam-ach</i> nó <i lang="ga">Faran-haít</i>.
+Sin an fáth a bhfuil rialacha 
+<code>i1h</code>, <code>n5h6a</code>, srl. ann.
+</p>
+
+<p>
+Riail ghinearálta eile: i gcás focal coimrithe, is féidir fleiscín a chur 
+isteach ag pointe an choimrithe; m.sh.
+<i lang="ga">ciog-al</i> agus <i lang="ga">ciog-lach</i>.
 </p>
 
 <hr>
-<h2>Results</h2>
+<h2>Torthaí</h2>
 <p>
-The resulting hyphenation patterns are very much "etymological"
-vs. "phonological".   As a consequence, they do not always
-agree with hyphenations I've found in actual printed texts.
-For instance:<br><br>
-<table lang="ga" border cellpadding=2>
-<tr><td lang="en">My patterns</td>  <td lang="en">Corpus</td></tr>
+Tá na rialacha seo bunaithe ar mhoirfeolaíocht na Gaeilge seachas ar
+fhóineolaíocht na Gaeilge (mo rogha phearsanta).
+Uaireanta, ní aontaíonn siad leis na fleiscíní
+a fheictear i leabhair phriontáilte dá bharr seo.
+Mar shampla:
+<p>
+
+<table lang="ga" class="fleiscin">
+<tr><th>Na rialacha seo</th>  <th>Corpas</th></tr>
 <tr><td>Ceilt-each</td>         <td>Ceil-teach</td></tr>
 <tr><td>siosc-adh</td>          <td>sios-cadh</td></tr>
 <tr><td>craic-eann</td>         <td>crai-ceann</td></tr>
 <tr><td>ceann-aithe</td>        <td>cean-naithe</td></tr>
 <tr><td>tuairt-eáil</td>        <td>tuair-teáil</td></tr>
 <tr><td>comh-alta</td>          <td>com-halta</td></tr>
-</table><br><br>
-The last, of course, is an abomination of the worst kind.
+</table>
+
+<p>
+Ar ndóigh tá an sampla deireanach seo uafásach ar fad.
 </p>
 
 <hr>
-<h2>Known bugs or ambiguities</h2>
+<h2>Fadhbanna agus focail dhébhríocha</h2>
+<p>Nuair is gá fleiscín a chur san fhocal Béarla “record”, braitheann
+sé ar an gcomhthéacs (briathar <i>re-cord</i> vs. ainmfhocal <i>rec-ord</i>).
+Toisc gur lean mé struchtúr moirfeolaíoch na Gaeilge
+go cúramach, tá roinnt samplaí débhríocha (agus greannmhara)
+ann sa mbunachar sonraí.
+Den chuid is mó is focail nó foirmeacha as an ngnáth iad,
+an saorbhriathar gnáthchaite go minic.
+</p>
 <ul>
-<li>The word "record" is a well-known example of 
-an English word where the proper hyphenation depends on 
-context (verb "re-cord" vs. noun "rec-ord").  
-A strict adherence to "morphological" hyphenation in Irish 
-leads to a number of amusing (and highly-improbable) ambiguities,
-many arising from the not-particularly-distinctive form
-of the imperfect autonomous:
-<ul>
-<li><i lang="ga">bhrach-taí</i> "used to be fermented" (broad stem) vs. <i lang="ga">bhracht-aí</i> "sappiest"
-<li><i lang="ga">cháint-í</i> "most critical" (no hyphen) vs. <i lang="ga">cháin-tí</i> "used to be taxed"
-<li><i lang="ga">Cheilt-í</i> "most Celtic" (no hyphen) vs. <i lang="ga">Cheil-tí</i> "used to be concealed"
-<li><i lang="ga">chist-í</i> "treasures" (no hyphen) vs. <i lang="ga">chis-tí</i> "used to be handicapped"
-<li><i lang="ga">gcoirtí</i> "may you tan" (no hyphen) vs. <i lang="ga">gcoir-tí</i> "used to be worn out"
-<li><i lang="ga">chreataí</i> "used to be shaken" (no hyphen) vs. <i lang="ga">chreat-aí</i> "shakiest"
-<li><i lang="ga">doir-tear</i> "breeds" vs. <i lang="ga">doirt-ear</i> "spills"
-<li><i lang="ga">fhuad-ar</i> "bustle" vs. <i lang="ga">fhua-dar</i> "they sewed"
-<li><i lang="ga">fhuaf-ar</i> "odious" vs. <i lang="ga">fhua-far</i> "one will sew"
-<li><i lang="ga">ghais-tí</i> "used to gush" vs. <i lang="ga">ghaist-í</i> "traps" (no hyphen)
-<li><i lang="ga">gheal-taí</i> "used to be brightened" vs. <i lang="ga">ghealt-aí</i> "lunatics"
-<li><i lang="ga">ghor-taí</i> "used to be incubated" vs. <i lang="ga">ghort-aí</i> "may you injure"
-<li><i lang="ga">na haist-í</i> "hatches" (no hyphen) vs. <i lang="ga">na hais-tí</i> "essays"
-<li><i lang="ga">lé-amar</i> "we read" (past) vs. <i lang="ga">léam-ar</i> "lemur"
-<li><i lang="ga">luad-ar</i> "movement" vs. <i lang="ga">lua-dar</i> "they mentioned"
-<li><i lang="ga">meat-aí</i> "most perishable" vs. <i lang="ga">mea-taí</i> "used to waste"
-<li><i lang="ga">réalt-aí</i> "stars" vs. <i lang="ga">réal-taí</i> "used to be developed"
-<li><i lang="ga">ríf-ear</i> "reefer" (Collins Gem) vs. <i lang="ga">rí-fear</i> "will tighten"
-<li><i lang="ga">shá-dar</i> "they stabbed" vs. <i lang="ga">shád-ar</i> "solder"
-<li><i lang="ga">Shá-imis</i> "we stab" vs. <i lang="ga">Sháim-is</i> "Sami language"
-<li><i lang="ga">shá-faí</i> "one would stab" vs. <i lang="ga">sháf-aí</i> "ax handle" (genitive)
-<li><i lang="ga">speal-ta</i> "mowed" vs. <i lang="ga">spealt-a</i> "milt" (genitive, no hyphen)
-<li><i lang="ga">thiom-áin-tí</i> "used to be driven" vs. <i lang="ga">thiom-áint-í</i> "drives"
+<li><i lang="ga">bhrach-taí</i> “used to be fermented” (stoc leathan) vs. <i lang="ga">bhracht-aí</i> “sappiest”</li>
+<li><i lang="ga">cháint-í</i> “most critical” (gan fleiscín) vs. <i lang="ga">cháin-tí</i> “used to be taxed”</li>
+<li><i lang="ga">Cheilt-í</i> “most Celtic” (gan fleiscín) vs. <i lang="ga">Cheil-tí</i> “used to be concealed”</li>
+<li><i lang="ga">chist-í</i> “treasures” (gan fleiscín) vs. <i lang="ga">chis-tí</i> “used to be handicapped”</li>
+<li><i lang="ga">gcoirtí</i> “may you tan” (gan fleiscín) vs. <i lang="ga">gcoir-tí</i> “used to be worn out”</li>
+<li><i lang="ga">chreataí</i> “used to be shaken” (gan fleiscín) vs. <i lang="ga">chreat-aí</i> “shakiest”</li>
+<li><i lang="ga">doir-tear</i> “breeds” vs. <i lang="ga">doirt-ear</i> “spills”</li>
+<li><i lang="ga">fhuad-ar</i> “bustle” vs. <i lang="ga">fhua-dar</i> “they sewed”</li>
+<li><i lang="ga">fhuaf-ar</i> “odious” vs. <i lang="ga">fhua-far</i> “one will sew”</li>
+<li><i lang="ga">ghais-tí</i> “used to gush” vs. <i lang="ga">ghaist-í</i> “traps” (no hyphen)</li>
+<li><i lang="ga">gheal-taí</i> “used to be brightened” vs. <i lang="ga">ghealt-aí</i> “lunatics”</li>
+<li><i lang="ga">ghor-taí</i> “used to be incubated” vs. <i lang="ga">ghort-aí</i> “may you injure”</li>
+<li><i lang="ga">na haist-í</i> “hatches” (gan fleiscín) vs. <i lang="ga">na hais-tí</i> “essays”</li>
+<li><i lang="ga">lé-amar</i> “we read” (aimsir chaite) vs. <i lang="ga">léam-ar</i> “lemur”</li>
+<li><i lang="ga">luad-ar</i> “movement” vs. <i lang="ga">lua-dar</i> “they mentioned”</li>
+<li><i lang="ga">meat-aí</i> “most perishable” vs. <i lang="ga">mea-taí</i> “used to waste”</li>
+<li><i lang="ga">réalt-aí</i> “stars” vs. <i lang="ga">réal-taí</i> “used to be developed”</li>
+<li><i lang="ga">ríf-ear</i> “reefer” (Foclóir Collins Gem) vs. <i lang="ga">rí-fear</i> “will tighten”</li>
+<li><i lang="ga">shá-dar</i> “they stabbed” vs. <i lang="ga">shád-ar</i> “solder”</li>
+<li><i lang="ga">Shá-imis</i> “we stab” vs. <i lang="ga">Sháim-is</i> “Sami language”</li>
+<li><i lang="ga">shá-faí</i> “one would stab” vs. <i lang="ga">sháf-aí</i> “ax handle” (genitive)</li>
+<li><i lang="ga">speal-ta</i> “mowed” vs. <i lang="ga">spealt-a</i> “milt” (ginideach, gan fleiscín)</li>
+<li><i lang="ga">thiom-áin-tí</i> “used to be driven” vs. <i lang="ga">thiom-áint-í</i> “drives”</li>
 </ul>
-In <i>gahyph.tex</i>, these words are placed
-inside a <code>\hyphenation{}</code> statement so that TeX will not apply
-the usual rule set to them.
-<li>
-Note there is also a potential difficulty with words like
-<i lang="ga">bainte</i> which can be viewed morphologically as
-<i lang="ga">bain+te</i>
-(i.e. past participle) or as <i lang="ga">baint+e</i>
-(genitive of a second declension noun).   The same holds
-if the noun forms admits a plural, e.g.
-<i lang="ga">bhaint+í</i> could also be the imperfect
-autonomous <i lang="ga">bhain+tí</i>.
-The current set of patterns is designed to allow
-the past participle hyphenation in most cases.
-Here are the other words for which this is relevant:
-<i lang="ga">
-athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
+
+<p>
+Chuir mé na focail seo laistigh de bhloc
+<code>\hyphenation{}</code> sna rialacha, sa chaoi nach ndéanfaidh TeX
+fleiscíniú mícheart orthu.
+</p>
+
+<p>
+Baineann deacracht eile le focail ar nós
+<i lang="ga">bainte</i>, ar féidir anailís a dhéanamh orthu
+mar aidiachtaí briathartha (m.sh. <i lang="ga">bain+te</i>)
+nó mar ainmfhocail sa ghinideach (m.sh. <i lang="ga">baint+e</i>).
+Tá an deacracht chéanna ann
+san iolra (<i lang="ga">bhaint+í</i>) vs.
+an saorbhriathar gnáthchaite (<i lang="ga">bhain+tí</i>).
+Ceadaíonn na rialacha sa leagan is déanaí fleiscíniú mar
+aidiacht bhriathartha.
+Seo roinnt focal eile den sórt céanna:
+<i lang="ga">athoscailte, bainte, ceilte, cigilte, coigilte, cuimilte,
 deighilte, déroinnte, diomailte, dúbailte, easmailte, eitilte,
 fóinte, foroinnte, fuascailte, meilte, múscailte, oscailte, roinnte,
 satailte, streachailte, tochailte, tomhailte, tríroinnte, tuirlingte</i>.
-Other past participles have the same ambiguity "accidentally":
-<i lang="ga">ciste</i> (<i lang="ga">cist</i>="a cyst"), <i lang="ga">coirte</i> (<i lang="ga">coirt</i>="tree bark"),
-<i lang="ga">deilte</i> (<i lang="ga">deilt</i>="delta"), <i lang="ga">feilte</i> (<i lang="ga">feilt</i>="felt")
-The noun <i lang="ga">cruachta</i> is a third declension example.
-<li>Finally, there are some true "bugs". 
-They are extremely rare: as of version 1.0 
-the patterns do not produce <em>any</em>
-hyphen points which are not in the database
-and miss just 10 out of 314,639 hyphen points. 
-This is not to say that you won't discover any
-bad hyphenations, but that they are the fault of
-the underlying database and not of the algorithms
-used to produce the patterns.
-</ul>
+Tarlaíonn an débhríocht seo i gcásanna eile “trí thimpiste”:
+<i lang="ga">ciste</i> (<i lang="ga">cist</i>=“a cyst”), <i lang="ga">coirte</i> (<i lang="ga">coirt</i>=“tree bark”),
+<i lang="ga">deilte</i> (<i lang="ga">deilt</i>=“delta”), <i lang="ga">feilte</i> (<i lang="ga">feilt</i>=“felt”)
+Is sampla sa tríú díochlaonadh é an t-ainmfhocal <i lang="ga">cruacht(a)</i>.
+</p>
+
+<p>
+Tá fabhtanna ann freisin, ach is fíorannamh iad:
+ní dhéanann na rialacha i leagan 1.0
+<em>aon</em> fhleiscín nach bhfuil sa mbunachar
+sonraí, agus níl ach deich gcinn as 314,639
+sa mbunachar sonraí nach féidir leo a dhéanamh.
+Ní hé sin le rá nach bhfaighidh tú aon drochfhleiscíní,
+ach gur ar an mbunachar sonraí an locht seachas ar an
+algartam a chruthaigh na rialacha.
+</p>
