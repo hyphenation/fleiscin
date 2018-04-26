@@ -1,0 +1,89 @@
+<h2>Downloads</h2>
+<ul>
+<li>If you are using a TeX distribution like
+<a target="_blank" href="https://www.tug.org/texlive/">TeX Live</a>,
+the Irish hyphenation patterns are installed by default
+and chances are you don't need to download anything special from this site.
+On my (Debian-based) Linux system, it was enough to
+install the package <code>texlive-base</code>.</li>
+<li>If for some reason you need to download the TeX patterns file
+<code>hyph-ga.tex</code> directly, you can find it on
+<a target="_blank" href="http://mirrors.rit.edu/CTAN/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/">CTAN</a>, or the latest version
+is always available from our
+<a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github repository</a>.</li>
+<li>Older versions of TeX and programs like GNU troff use an ASCII-only
+version of the hyphenation patterns named <code>gahyph.tex</code>.
+This file is also available from
+<a target="_blank" href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>, or from our
+<a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github repository</a>.</li>
+<li>The patterns can be used with OpenOffice.org by installing 
+<a target="_blank" href="http://extensions.openoffice.org/en/project/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">this extension</a>.</li>
+<li>The corresponding extension for LibreOffice can be downloaded
+from the <a target="_blank" href="https://extensions.libreoffice.org/extensions/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">LibreOffice extension site</a>.</li>
+<li>The file <code>hyph_ga_IE.zip</code> (for use with Scribus, or with
+LibreOffice/OpenOffice.org if you'd rather not install the above extensions) can be
+downloaded from an <a target="_blank" href="http://download.services.openoffice.org/contrib/dictionaries/hyph_ga_IE.zip.mirrorlist">OpenOffice.org mirror</a> or from 
+our <a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github repository</a>.</li>
+<li>The file <code>ga.xml</code> for Apache FOP or Folio can also be downloaded
+from <a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github</a>.
+<li>The patterns are integrated directly into the
+<a target="_blank" href="https://github.com/mnater/Hyphenator">Hyphenator.js</a> source code,
+which comes with good documentation.</li>
+</ul>
+
+<hr>
+<h2>LaTeX Usage</h2>
+<p>
+To typeset an Irish document in LaTeX, simply add the lines
+<pre>
+\usepackage[irish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+</pre>
+to the preamble and compile using LaTeX as usual.
+This sets the default language of the document to Irish.
+If you need to include some English passages, change the “babel”
+line above to:
+<pre>
+\usepackage[english,irish]{babel}
+</pre>
+and use <code>\selectlanguage</code> in the body of the document as follows:
+<pre>
+\begin{document}
+Tá sé thar a bheith éasca fleiscíní
+a chur san áireamh anois.
+
+\selectlanguage{english}
+We don't talk no foreign talk
+round these here parts.
+
+\selectlanguage{irish}
+Bainfidh mé úsáid as an acmhainn iontach seo.
+\end{document}
+</pre>
+</p>
+
+<hr>
+<h2>Important Remarks</h2>
+<ul>
+<li>TeX inserts a discretionary break after <em>explicit</em>
+hyphens within words; this has the (mostly desirable) effect that
+explicitly hyphenated words will only be broken at the hyphen.</li>
+<li>This is fine for <i lang="ga">Breac-Ghaeltacht</i> or
+<i lang="ga">Ard-Aighne</i>, 
+but not for <i lang="ga">t-idirnáisiúnachas</i>. You will have to add your
+own discretionary hyphens if such a word needs to be broken, e.g.
+<code>t-idir\-náisiún\-achas</code>.</li>
+<li>Conversely, you may want to <em>prevent</em> breaks at 
+“t-” or “n-”; for this you can enclose the word in an <code>\mbox</code>.</li>
+<li>Similar remarks hold for words containing apostrophes.</li>
+<li>Since
+<i lang="ga">amh-ras</i> is a legal hyphenation, it follows
+that <i lang="ga">drochamh-ras</i> should be also, though naturally one would
+much prefer <i lang="ga">droch-amhras</i>.
+Unfortunately TeX has no mechanism for assigning “weights” to different
+hyphen points in the same word, so you will have to beware of such
+examples on your own.
+<li>See the list of known bugs at the end of the <a href="sonrai-en.html">Details</a>
+page.
+</ul>

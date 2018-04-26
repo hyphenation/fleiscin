@@ -1,120 +1,88 @@
 <h2>Downloads</h2>
-<p>
 <ul>
-<li>The file <i>gahyph.tex</i> (for use with (La)TeX and GNU troff)
-can be downloaded from <a href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>, or the latest version is always available from our
-<a href="https://github.com/kscanne/fleiscin/releases">github repository</a>.</li>
-<li>The patterns can be used with OpenOffice.org by installing 
-<a href="http://extensions.openoffice.org/en/project/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">this extension</a>.</li>
-<li>The corresponding extension for LibreOffice can be downloaded
-from the <a href="http://extensions.libreoffice.org/extension-center/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">LibreOffice extension site</a>.</li>
-<li>The file <i>hyph_ga_IE.zip</i> (for use with Scribus, or with
-LibreOffice/OpenOffice.org if you'd rather not install the above extensions) can be
-downloaded from an <a href="http://download.services.openoffice.org/contrib/dictionaries/hyph_ga_IE.zip.mirrorlist">OpenOffice.org mirror</a> or from 
-our <a href="https://github.com/kscanne/fleiscin/releases">github repository</a>.</li>
-<li>The file <i>ga.xml</i> for Apache FOP or Folio can also be downloaded
-from <a href="https://github.com/kscanne/fleiscin/releases">github</a>.
-<li>The patterns are integrated directly into the
-<a href="https://github.com/mnater/Hyphenator">Hyphenator.js</a> source code,
-which comes with good documentation.</li>
+<li>Má úsáideann tú pacáiste TeX ar nós
+<a target="_blank" href="https://www.tug.org/texlive/">TeX Live</a>,
+is dócha go bhfuil na rialacha fleiscínithe don Ghaeilge agat cheana féin,
+agus ní gá duit aon rud a íoslódáil ná a shuiteáil ón suíomh seo.
+Ar an gcóras Linux atá agamsa (bunaithe ar Debian), ba leor an 
+pacáiste <code>texlive-base</code> a shuiteáil.</li>
+<li>Má tá tú ag iarraidh na rialacha féin a íoslódáil ar chúis éigin,
+tá an comhad <code>hyph-ga.tex</code> ar fáil ó
+<a target="_blank" href="http://mirrors.rit.edu/CTAN/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/">CTAN</a>, nó is féidir leat an leagan
+is déanaí a fháil ónár suíomh
+<a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github</a>.</li>
+<li>Úsáideann leaganacha níos sine de TeX agus ríomhchláir eile ar nós GNU Troff comhad ASCII-amháin ina bhfuil na rialacha darb ainm <code>gahyph.tex</code>.
+Tá an comhad seo ar fáil ó
+<a target="_blank" href="http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a> freisin, nó ón suíomh
+<a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github</a>.</li>
+<li>Is féidir na rialacha a úsáid in OpenOffice.org trí
+<a target="_blank" href="http://extensions.openoffice.org/en/project/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">bhreiseán a shuiteáil</a>.</li>
+<li>Tá an breiseán céanna ar fáil le haghaidh LibreOffice
+<a target="_blank" href="https://extensions.libreoffice.org/extensions/irish-language-spell-checker-thesaurus-and-hyphenation-patterns">anseo</a>.</li>
+<li>Tá an comhad <code>hyph_ga_IE.zip</code> (le haghaidh Scribus, nó
+LibreOffice/OpenOffice.org mura bhfuil tú ag iarraidh na breiseáin thuas a shuiteáil) ar fáil ó <a target="_blank" href="http://download.services.openoffice.org/contrib/dictionaries/hyph_ga_IE.zip.mirrorlist">fhreastalaí de chuid OpenOffice.org</a> nó ón suíomh <a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github</a>.</li>
+<li>Tá an comhad <code>ga.xml</code> le haghaidh Apache FOP nó Folio ar fáil ar <a target="_blank" href="https://github.com/kscanne/fleiscin/releases">github</a> freisin.
+<li>Is cuid den chód foinseach sa bpacáiste
+<a target="_blank" href="https://github.com/mnater/Hyphenator">Hyphenator.js</a> na rialacha anois. Tá tuilleadh eolais ar fáil sa doiciméadú.</li>
 </ul>
-</p>
-
-<h2>LaTeX Installation</h2>
-<p>
-The installation may vary according to the distribution
-of TeX/LaTeX that you use (I use <a href="http://www.tug.org/teTeX/">teTeX</a>).
-Path names in the instructions are given relative to your system
-<i>texmf</i> directory; for me this is <code>/usr/share/texmf</code>.
-</p>
-
-<ol>
-<li>Download the file <i>gahyph.tex</i> from 
-<a href = "http://www.ctan.org/tex-archive/language/hyphenation/">CTAN</a>.
-<li>Copy it into the directory <code>tex/generic/hyphen</code>.
-<li>Run <code>texhash</code> to tell LaTeX about the new file:
-<pre>
-# texhash
-</pre>
-<li>Insert a line of the form 
-<pre>
-irish   gahyph.tex
-</pre>
-in the file <code>tex/generic/config/language.dat</code>.
-<li>Go into the subdirectory <code>web2c</code> and run
-<code>initex</code> to compile the patterns and
-rebuild the <code>latex.fmt</code> file:
-<pre>
-# initex latex.ltx
-</pre>
-or else rebuild everything (pdflatex, etc.) with <code>fmtutil</code>:
-<pre>
-# fmtutil --all
-</pre>
-</ol>
 
 <hr>
 <h2>LaTeX Usage</h2>
 <p>
-To typeset an Irish document, simply add the lines
+Chun cáipéis i nGaeilge a chur i gcló in LaTeX, ní gá duit ach na línte
+seo a chur sa mbrollach:
 <pre>
 \usepackage[irish]{babel}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 </pre>
-to the preamble and compile using LaTeX as usual.
-This sets the default language of the document to Irish.
-If you need to include some English passages, change the "babel"
-line above to:
+ansin an cháipéis a thiomsú le LaTeX mar is gnáth.
+Socraíonn seo Gaeilge mar phríomhtheanga na cáipéis.
+Más gá duit sliocht i mBéarla a chur san áireamh,
+athraigh an líne “babel” go:
 <pre>
 \usepackage[english,irish]{babel}
 </pre>
-and use <code>\selectlanguage</code> in the body of the document as follows:
+agus bain úsáid as <code>\selectlanguage</code> mar a leanas:
 <pre>
 \begin{document}
-Is \'easca na fleisc\'{\i}n\'{\i}
-a chur san \'aireamh anois.
+Tá sé thar a bheith éasca fleiscíní
+a chur san áireamh anois.
 
 \selectlanguage{english}
 We don't talk no foreign talk
 round these here parts.
 
 \selectlanguage{irish}
-Bainfidh m\'e \'us\'aid as an acmhainn seo.
+Bainfidh mé úsáid as an acmhainn iontach seo.
 \end{document}
 </pre>
 </p>
 
-
 <hr>
-<h2>Important Remarks</h2>
+<h2>Nótaí Tábhachtacha</h2>
 <ul>
-<li>TeX inserts a discretionary break after <em>explicit</em>
-hyphens within words; this has the (mostly desirable) effect that
-explicitly hyphenated words will only be broken at the hyphen.
-<li>This is fine for <i lang="ga">Breac-Ghaeltacht</i> or
-<i lang="ga">Ard-Aighne</i>, 
-but not for <i lang="ga">t-idirnáisiúnachas</i>.   You will have to add your
-own discretionary hyphens if such a word needs to be broken, e.g.
-<i lang="ga">t-idir\-n\'aisi\'un\-achas</i>.
-<li>Conversely, you may want to <em>prevent</em> breaks at 
-"t-" or "n-"; for this you can enclose the word in an <code>\mbox</code>.
-<li>Similar remarks hold for words containing apostrophes.
-One could try using <code>\catcode</code> to declare apostrophes to be "letters",
-but this forces you to include spaces when entering acute accents:
-<i lang="ga">n\' aisi\' un</i>.   Instead, since apostrophes occur relatively infrequently,
-it is easier to insert discretionary hyphens when needed.
-<li>For example, since 
-<i lang="ga">amh-ras</i> is a legal hyphenation, it follows
-that <i lang="ga">drochamh-ras</i> should be also, though naturally one would
-much prefer <i lang="ga">droch-amhras</i>.
-Unfortunately TeX has no mechanism for assigning "weights" to different
-hyphen points in the same word, so you will have to beware of such
-examples on your own.
-<li>The 6000+ patterns put Irish near the top of the list of languages
-distributed with the Babel package.
-If you have problems with memory or load times I can easily
-produce a 33% smaller custom version by restricting 
-to words appearing in a text corpus.
-<li>See the list of bugs at the end of the <a href="sonrai.html">Details</a>
+<li>Cuireann TeX briseadh roghnach i bhfocal tar éis aon fhleiscín
+atá ann, sa chaoi go mbristear focail ar nós
+<i lang="ga">Breac-Ghaeltacht</i> nó <i lang="ga">Ard-Aighne</i>
+ag an bhfleiscín.
+<li>Faraor, níl an riail seo feiliúnach i gcás réimíreanna, mar
+shampla <i lang="ga">t-idirnáisiúnachas</i> nó <i lang="ga">n-uibheacha</i>.
+Ní mór duit fleiscíní roghnacha de do chuid féin a chur isteach
+más gá focal den sórt seo a bhriseadh:
+<code>t-idir\-náisiún\-achas</code>.</li>
+<li>Ar an lámh eile, uaireanta is gá <em>cosc</em> a chur ar bhriseadh
+tar éis “t-” nó “n-”; chun é seo a dhéanamh, caithfidh tú an focal
+a chur isteach i gclib <code>\mbox</code>.</li>
+<li>Tá an scéal mar an gcéanna i gcás focal ina bhfuil uaschamóg.</li>
+<li>Toisc go gceadaítear
+<i lang="ga">amh-ras</i> mar fhleiscíniú, creideann TeX gur
+féidir an focal <i lang="ga">drochamhras</i> a bhriseadh san áit chéanna
+(<i>drochamh-ras</i>), cé go mbeadh an briseadh
+<i lang="ga">droch-amhras</i> i bhfad níos fearr.
+Faraor, ní féidir “meáchain” a cheangal le pointí fleiscínithe
+éagsúla in TeX, agus dá bharr sin caithfidh tú a bheith san airdeall
+ar dhrochshamplaí den sórt seo.
+<li>Gheobhaidh tú liosta de na fabhtanna ar m'eolas ag deireadh an leathanaigh <a href="sonrai.html">Mionsonraí</a>
 page.
 </ul>
